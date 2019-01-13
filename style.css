@@ -1,0 +1,299 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+#app {
+    display: flex;
+    background-image: url(img/money-case-163495_1280.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+
+
+.money  {
+min-width: 50%;
+height: 50vh;
+  display: flex;
+  flex-direction: column;
+  /* background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5%; */
+}
+
+
+.money input {
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    margin-left: 10px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(231, 224, 224);
+}
+
+.money .summary {
+    margin-top: 20px;
+    flex-basis: 30%;
+    text-align: center;
+  } 
+  .summary img {
+      width: 50px;
+      margin-left: 10px;
+  }
+.money .pig {
+    /* background-color: rgba(255, 255, 255, 0.178); */
+    flex-basis: 10%;
+    flex-grow: 1;
+    text-align: center;
+    position: relative;
+}
+.money .pig img{
+    height: 250px;
+}
+
+.pig .amount {
+    position: absolute;
+    font-size: 40px;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(208, 211, 30)
+}
+
+.money button {
+    cursor: pointer;
+    width: 150px;
+    height: 70px;
+    margin: 20px  70%;
+    border-radius: 15px;
+    background-color: rgb(32, 175, 19);
+    color: white;
+    letter-spacing: 1.5px;
+    border: none;
+    box-shadow: 0 0 25px 2px black;
+    font-size: 16px;
+    transition: .2s;
+}
+
+.money button:hover {
+   transform: translate(-2px,-30px) scale(1.2);
+   box-shadow: 0 0 35px 1px black;
+}
+
+
+
+.employees {
+    margin-top: 20px;
+    margin-left: 10px;
+    flex-basis: 20%;
+    /* height: 50vh; */
+    /* width: 50%; */
+    background-color: rgba(21, 77, 77, 0.459);
+    border: rgb(21, 77, 77) 2px solid;
+    border-radius: 50px;
+    padding: 15px;
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
+
+}
+
+ .employees::before {
+    content: '10zł';
+    position: absolute;
+    top: 4px;
+    font-size: 20px;
+    left:665px;
+    transform: translateX(-50%);
+    color: white;
+ }
+.employees::after {
+    content: '';
+    position: absolute;
+    background-color: transparent;
+    width: 1px;
+      border-left: dotted 3px white;
+    /* border: dotted 1px white; */
+    height: calc(100% - 40px);
+    top: 35px;
+    left:665px;
+}
+.employee{
+    min-width: 80%;
+   height: 40px;
+    display: flex;
+    margin: 10px;
+    /* background-color: rgba(255, 255, 255, 0.527); */
+    
+}
+.employee input {
+    display: block;
+    height: 40px;
+    width: 30px;
+    
+}
+.employee .name, .employee.new .new-employee {
+    background-color: rgba(198, 224, 196, 0.781);
+    width: 250px;
+    height: auto;
+    margin-left: 40px;
+    border-radius: 50px;
+    line-height: 40px;
+    font-size: 30px;
+    border: none;
+    text-align: center;
+}
+
+.employee .sum {
+    display: inline-block;
+    height: 25px;
+    width: 300px;
+    background-color: rgb(199, 164, 11);
+    margin-top: 10px;
+    margin-left: 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    position: relative;
+
+
+}
+
+.employee .sum .take-money {
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    height: 150%;
+    width: auto;
+    font-size: 20px;
+    right: 0;
+    top: 50%;
+    transform: translate(120%, -50%);
+    background-color: rgb(58, 195, 17);
+    border: none;
+    border-radius: 10px;
+    visibility: hidden;
+    color: white;
+    padding: 5px;
+}
+
+.employee .sum .take-money.show {
+    visibility: visible;
+}
+
+.employee.new button {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: rgb(17, 230, 27);
+    font-size: 30px;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border: none;
+    margin-left: 20px;
+
+}
+
+
+.logbook {
+    flex-basis: 50%;
+    /* height: 50vh; */
+    /* background-color: rgba(21, 77, 77, 0.767); */
+    /* border: rgb(21, 77, 77) 2px solid; */
+    padding: 15px;
+    text-align: center;
+}
+.logbook .table {
+    background-color: rgba(224, 223, 207, 0.548);
+    margin: auto;
+    width: 70%;
+    height: 500px;
+    overflow-y: scroll;
+
+
+}
+h2 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+
+}
+
+.table .nav, .table .day {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    padding: 5px;
+}
+
+.logbook .nav, .latest-payouts .nav {
+    font-weight: bold;
+    background-color: rgb(27, 151, 11);
+    color: white;
+    letter-spacing: 1.5px;
+    padding: 15px;
+}
+.logbook .date {
+    width: 15%;
+}
+
+.logbook .stuff {
+    width: 65%;
+}
+
+.logbook .amount {
+    width: 20%;
+}
+
+.latest-payouts {
+    flex-basis: 50%;
+    margin-top: 100px;
+
+}
+
+.day:nth-of-type(2n) {
+    background-color: rgba(119, 97, 97, 0.342);
+}
+
+
+.table::-webkit-scrollbar {
+width: 5px;
+height: 20px;;
+}
+
+.table::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+
+.table::-webkit-scrollbar-thumb {
+background-color: rgba(41, 57, 148, 0.794);
+border-radius: 25px;
+}
+
+/* .latest-payouts h2 {
+color: white;
+} */
+.latest-payouts .date {
+width: 30%;
+}
+.latest-payouts .stuff {
+width: 70%;
+}
+
+.latest-payouts .table {
+width: 400px;
+margin: auto;
+max-height: 305px;
+overflow: hidden;
+background-color: rgba(224, 223, 207, 0.548);
+}
