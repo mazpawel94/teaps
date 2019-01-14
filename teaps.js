@@ -1,3 +1,4 @@
+
 const data = {
     czarka: [{
     name: 'Ela S',
@@ -163,13 +164,15 @@ payments: [
     },
 ],
 newEmployee: '',
+coins: [2,4,8,8,3,2,0,2,2,0],
+startAmount: -1
 };
     
 new Vue ({
     el: '#app',
     data: data,
-    methods: {
 
+    methods: {
         checkName: function(newName) {
             let uniqueName = true;
             this.czarka.forEach(e => {
@@ -180,6 +183,7 @@ new Vue ({
         },
         addEmployee: function() {
             const name = this.newEmployee.trim();
+            if(name.length===0) return;
             if(this.checkName(name)) {
                 this.czarka.push({
                     name: name,
@@ -189,15 +193,31 @@ new Vue ({
             }
             else {
                 alert('Istnieje osoba o takim imieniu, dodaj pierwszą literę nazwiska lub inny identyfikujący Cię element');
-            }
-            
-        }
+            }           
+        },
+
+        startPiggyValue: function() {
+            if(this.startAmount===-1) this.startAmount = this.sum();
+            document.querySelector('.start-amount').innerHTML = 'Przed: ' + this.startAmount;
+        },
+
+        take10zlotys: function(worker) {
+            worker.money =Math.round((worker.money -10)*100) / 100;
+            this.coins[9]-=1;
+            console.log(worker, worker.money);
+        },
+
+        sum: function () {
+            console.log('działam');
+            const sum = this.coins[0]*1 + this.coins[1]*2 + this.coins[2]*5 + this.coins[3]*10 + this.coins[4]*20 + this.coins[5]*50 + this.coins[6]*100 + this.coins[7]*200 + this.coins[8]*500 + this.coins[9]*1000;
+            return ` ${Math.floor(sum/100)},${sum%100 <10 ? sum%100 + "0" : sum%100} zł`;
+        
+        },
     },
+
     computed: {
-        width: function() {
-            return this.money * 30;
-        }
-    }
+        
+    },
 });
 
 const moneyInputs = document.querySelectorAll('.inputs input');

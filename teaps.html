@@ -29,23 +29,23 @@
                 <img src="img/4213d4154183bc179091bdbadd46.jpg" alt="">
             </div>
             <div class="inputs">
-                <input type="number" name='one-penny' readonly value="5">
-                <input type="number" name='two-penny' readonly value="15">
-                <input type="number" name='five-penny' readonly value="3">
-                <input type="number" name='ten-penny' readonly value="4">
-                <input type="number" name='twenty-penny' readonly value="0">
-                <input type="number" name='fifty-penny' readonly value="8">
-                <input type="number" name='one-zloty' readonly value="4">
-                <input type="number" name='two-zlotys' readonly value="3">
-                <input type="number" name='five-zlotys' readonly value="3">
-                <input type="number" name='ten-zlotys' readonly value="0">
+                <input type="number" name='one-penny' data-penny=1 readonly v-model="coins[0]">
+                <input type="number" name='two-penny' data-penny=2 readonly v-model="coins[1]">
+                <input type="number" name='five-penny' data-penny=5 readonly v-model="coins[2]">
+                <input type="number" name='ten-penny' data-penny=10 readonly v-model="coins[3]">
+                <input type="number" name='twenty-penny' data-penny=20 readonly v-model="coins[4]">
+                <input type="number" name='fifty-penny' data-penny=50 readonly v-model="coins[5]">
+                <input type="number" name='one-zloty' data-penny=100 readonly v-model="coins[6]">
+                <input type="number" name='two-zlotys' data-penny=200 readonly v-model="coins[7]">
+                <input type="number" name='five-zlotys' data-penny=500 readonly v-model="coins[8]">
+                <input type="number" name='ten-zlotys' data-penny=1000 readonly v-model="coins[9]">
             </div>
-
         </div>
         <div class="pig">
-            <div class="amount">29,90 zł</div> <img src="img/piggy-bank-1001599_640.png" alt="">
+            <div class="amount">{{sum()}}</div> <img src="img/piggy-bank-1001599_640.png" alt="">
+            <div class="start-amount"></div>
         </div>
-        <button class="actualization"> aktualizuj</button>
+        <button class="actualization" @click="startPiggyValue"> aktualizuj</button>
     </div>
     <div class="employees">
         <div class="description">
@@ -56,7 +56,8 @@
             <input type="checkbox" name="" id="">
             <div class="name">{{worker.name}}</div>
             <div class="sum" :style="{ width: worker.money * 30 + 'px' }">{{worker.money + ' zł'}}
-                <button class="take-money" :class="{'show': worker.money >= 10}">Weźże dychę</button>
+            <div class="start-amount"></div>
+                <button class="take-money" :class="{'show': worker.money >= 10}" @click='take10zlotys(worker)'>Weźże dychę</button>
             </div>
         </div>
 
