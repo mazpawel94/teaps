@@ -63,8 +63,8 @@
         
         <div class="employee new">
             <input type="checkbox" name="" id="">
-            <input class='new-employee' type="text" placeholder="nowa osoba">
-            <button>+</button></div>
+            <input class='new-employee' type="text" placeholder="nowa osoba" v-model='newEmployee'>
+            <button @click='addEmployee'>+</button></div>
 
     </div>
     <div class="logbook">
