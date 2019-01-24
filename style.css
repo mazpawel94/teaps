@@ -8,19 +8,19 @@
 
 
 #app {
-    display: flex;
     background-image: url(img/money-case-163495_1280.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    flex-wrap: wrap;
     overflow: hidden;
 }
 
 
 
 .money  {
-min-width: 50%;
-height: 50vh;
+    float: left;
+
+min-width: 40%;
+min-height: 50vh;
   display: flex;
   flex-direction: column;
   /* background-color: rgba(255, 255, 255, 0.5);
@@ -29,11 +29,11 @@ height: 50vh;
 
 
 .money input {
-    width: 50px;
-    height: 40px;
+    width: 40px;
+    height: 30px;
     text-align: center;
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 18px;
     border: none;
     border-radius: 5px;
     background-color: rgb(231, 224, 224);
@@ -45,23 +45,23 @@ height: 50vh;
     text-align: center;
   } 
   .summary img {
-      width: 50px;
+      width: 40px;
       margin-left: 10px;
   }
 .money .pig {
     /* background-color: rgba(255, 255, 255, 0.178); */
-    flex-basis: 10%;
+    /* flex-basis: 35%; */
     flex-grow: 1;
     text-align: center;
     position: relative;
 }
 .money .pig img{
-    height: 250px;
+    height: 200px;
 }
 
 .pig .amount {
     position: absolute;
-    font-size: 40px;
+    font-size: 35px;
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -71,7 +71,7 @@ height: 50vh;
 .money button {
     cursor: pointer;
     width: 150px;
-    height: 70px;
+    min-height: 50px;
     margin: 20px  70%;
     border-radius: 15px;
     background-color: rgb(32, 175, 19);
@@ -93,19 +93,18 @@ height: 50vh;
 .employees {
     margin-top: 20px;
     margin-left: 10px;
-    flex-basis: 20%;
-    /* height: 50vh; */
-    /* width: 50%; */
+    width: 850px;
     background-color: rgba(21, 77, 77, 0.459);
     border: rgb(21, 77, 77) 2px solid;
     border-radius: 50px;
     padding: 15px;
-    flex-grow: 1;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     position: relative;
+    margin-left: auto;
+    margin-right: 10px;
 
 }
 
@@ -114,10 +113,14 @@ height: 50vh;
     position: absolute;
     top: 4px;
     font-size: 20px;
-    left:665px;
+    left:615px;
     transform: translateX(-50%);
     color: white;
- }
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
 .employees::after {
     content: '';
     position: absolute;
@@ -127,30 +130,30 @@ height: 50vh;
     /* border: dotted 1px white; */
     height: calc(100% - 40px);
     top: 35px;
-    left:665px;
+    left:615px;
 }
 .employee{
-    min-width: 80%;
-   height: 40px;
+    min-width: 60%;
+   height: 31px;
     display: flex;
-    margin: 10px;
+    margin: 7px;
     /* background-color: rgba(255, 255, 255, 0.527); */
     
 }
 .employee input {
     display: block;
-    height: 40px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
+    margin-top: 3px;
     
 }
 .employee .name, .employee.new .new-employee {
     background-color: rgba(198, 224, 196, 0.781);
-    width: 250px;
+    width: 200px;
     height: auto;
     margin-left: 40px;
     border-radius: 50px;
-    line-height: 40px;
-    font-size: 30px;
+    font-size: 24px;
     border: none;
     text-align: center;
 }
@@ -160,7 +163,7 @@ height: 50vh;
     height: 25px;
     width: 300px;
     background-color: rgb(199, 164, 11);
-    margin-top: 10px;
+    margin-top: 3px;
     margin-left: 20px;
     border-radius: 5px;
     font-size: 20px;
@@ -173,7 +176,6 @@ height: 50vh;
     position: absolute;
     cursor: pointer;
     display: block;
-    height: 150%;
     width: auto;
     font-size: 20px;
     right: 0;
@@ -197,8 +199,9 @@ height: 50vh;
     background-color: rgb(17, 230, 27);
     font-size: 30px;
     color: white;
-    width: 60px;
-    height: 60px;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
     border: none;
     margin-left: 20px;
 
@@ -206,18 +209,16 @@ height: 50vh;
 
 
 .logbook {
-    flex-basis: 50%;
-    /* height: 50vh; */
-    /* background-color: rgba(21, 77, 77, 0.767); */
-    /* border: rgb(21, 77, 77) 2px solid; */
+    width: 800px;
     padding: 15px;
     text-align: center;
+    float: left;
 }
 .logbook .table {
     background-color: rgba(224, 223, 207, 0.548);
     margin: auto;
-    width: 70%;
-    height: 500px;
+    width: 100%;
+    height: 400px;
     overflow-y: scroll;
 
 
