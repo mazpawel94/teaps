@@ -68,16 +68,28 @@ min-height: 50vh;
     color: rgb(208, 211, 30)
 }
 
-.money button {
+button {
     cursor: pointer;
     width: 150px;
-    min-height: 50px;
-    margin: 20px  70%;
+    height: 50px;
     border-radius: 15px;
     background-color: rgb(32, 175, 19);
     color: white;
     letter-spacing: 1.5px;
     border: none;
+    font-size: 16px;
+    transition: .2s;
+}
+.money button{
+    /* cursor: pointer;
+    width: 150px;
+    min-height: 50px; */
+    margin: 20px  70%;
+    /* border-radius: 15px;
+    background-color: rgb(32, 175, 19);
+    color: white;
+    letter-spacing: 1.5px;
+    border: none; */
     box-shadow: 0 0 25px 2px black;
     font-size: 16px;
     transition: .2s;
@@ -245,7 +257,7 @@ h2 {
     padding: 15px;
 }
 .logbook .date {
-    width: 15%;
+    width: 20%;
 }
 
 .logbook .stuff {
@@ -297,4 +309,56 @@ margin: auto;
 max-height: 305px;
 overflow: hidden;
 background-color: rgba(224, 223, 207, 0.548);
+}
+
+[draggable=true] {
+    cursor: move;
+}
+
+.tips-form {
+    position: absolute;
+    display: none;
+   background-color: rgb(199, 164, 11);
+    border: 2px solid rgba(153, 126, 53, 0.616);
+    border-radius: 15px;
+    width: 300px;
+    height: 250px;
+    top: 40%;
+    left: 25%;
+
+}
+
+.tips-form h3 {
+    text-align: center;
+}
+.tips-form ul {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-around;
+}
+.tips-form li{
+    padding: 5px;
+    list-style-type: none;
+}
+
+.tips-form span {
+    display: inline-block;
+    min-width: 90px;
+    margin-left: 15px;
+}
+
+.tips-form select {
+    background-color: rgb(196, 221, 114);
+    border: none;
+}
+
+.tips-form button {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    height: 30px;
+    transform: translateX(-50%);
+    background-color: rgb(9, 70, 4);
 }

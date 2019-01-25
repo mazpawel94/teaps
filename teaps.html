@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="pig">
-            <div class="amount">{{sum()}}</div> <img src="img/piggy-bank-1001599_640.png" alt="">
+            <div class="amount">{{beautyAmount(sum())}}</div> <img src="img/piggy-bank-1001599_640.png" alt="">
             <div class="start-amount"></div>
         </div>
         <button class="actualization" @click="startPiggyValue"> aktualizuj</button>
@@ -53,9 +53,9 @@
         </div>
 
         <div class="employee" v-for='worker in czarka'>
-            <input type="checkbox" name="" id="">
+            <input type="checkbox" v-model="worker.today">
             <div class="name">{{worker.name}}</div>
-            <div class="sum" :style="{ width: worker.money * 30 + 'px' }">{{worker.money + ' zł'}}
+            <div class="sum" :style="{ width: worker.money * 30 + 'px' }">{{worker.money.toFixed(2) + ' zł'}}
             <div class="start-amount"></div>
                 <button class="take-money" :class="{'show': worker.money >= 10}" @click='take10zlotys(worker)'>Weźże dychę</button>
             </div>
@@ -79,7 +79,7 @@
             <div class="day" v-for='summary in summaries'>
                 <div class="date">{{summary.date}}</div>
                 <div class="stuff">{{summary.participants.join(', ')}}</div>
-                <div class="amount">{{summary.sum + 'zł'}}</div>
+                <div class="amount">{{summary.sum}}</div>
             </div>
         </div>
     </div>
@@ -97,6 +97,22 @@
 
         </div>
 
+    </div>
+
+    <div class="tips-form">
+            <h3>+{{newTips}}</h3>
+
+        <ul>
+            <li v-for="worker in todayWorkers">
+                <span>{{worker.name}}</span>
+                <select name="hours" id="hours" v-model="worker.hours">
+                        <option value="1">cała zmiana</option>
+                        <option value="0.5">pół zmiany</option>
+                        <option value="2">podwójna zmiana</option>
+                </select>
+            </li>
+        </ul>
+        <button class = "save-changes" @click= "newCalculation">Zapisz zmiany</button>
     </div>
 </div>
 

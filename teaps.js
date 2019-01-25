@@ -2,7 +2,8 @@
 const data = {
     czarka: [{
     name: 'Ela S',
-    money: 5.50
+    money: 5.50,
+    today: false
 },
 {
     name: 'Ela D',
@@ -10,23 +11,28 @@ const data = {
 },
 {
     name: 'Zuza',
-    money: 8.35
+    money: 8.35,
+    today: false
 },
 {
     name: 'Patrycja',
-    money: 11.55
+    money: 11.55,
+    today: false
 },
 {
     name: 'Olga',
-    money: 3
+    money: 3,
+    today: false
 },
 {
     name: 'Przemek',
-    money: 6.50
+    money: 6.50,
+    today: false
 },
 {
     name: 'Paweł',
-    money: 4.11
+    money: 4.11,
+    today: false
 }],
 
 summaries: [
@@ -165,7 +171,8 @@ payments: [
 ],
 newEmployee: '',
 coins: [2,4,8,8,3,2,0,2,2,0],
-startAmount: -1
+startAmount: -1,
+
 };
     
 new Vue ({
@@ -198,7 +205,7 @@ new Vue ({
 
         startPiggyValue: function() {
             if(this.startAmount===-1) this.startAmount = this.sum();
-            document.querySelector('.start-amount').innerHTML = 'Przed: ' + this.startAmount;
+            document.querySelector('.start-amount').innerHTML = 'Przed: ' + this.beautyAmount(this.startAmount);
         },
 
         take10zlotys: function(worker) {
@@ -210,13 +217,47 @@ new Vue ({
         sum: function () {
             console.log('działam');
             const sum = this.coins[0]*1 + this.coins[1]*2 + this.coins[2]*5 + this.coins[3]*10 + this.coins[4]*20 + this.coins[5]*50 + this.coins[6]*100 + this.coins[7]*200 + this.coins[8]*500 + this.coins[9]*1000;
-            return ` ${Math.floor(sum/100)},${sum%100 <10 ? sum%100 + "0" : sum%100} zł`;
+            return sum;
         
         },
-    },
 
+        beautyAmount: function(amount) {
+            return ` ${Math.floor(amount/100)},${amount%100 <10 ? amount%100 + "0" : amount%100} zł`;
+        },
+
+        currentDate: function() {
+            date = new Date();
+            const leadingZero = (i) => (i < 10)? '0'+i : i;
+           return `${leadingZero(date.getDate())}/${leadingZero(date.getMonth()+1)}/${leadingZero(date.getFullYear())}, ${leadingZero(date.getHours())}:${leadingZero(date.getMinutes())}`;
+        },
+        newCalculation: function() {
+
+            const todayWorkersSum = this.todayWorkers.reduce((e1, e2, index) =>{
+                if (index === 1)
+                    return parseFloat(e1.hours) + parseFloat(e2.hours);
+                return e1 + parseFloat(e2.hours);});
+
+            this.todayWorkers.forEach(e => {
+                e.money+=(Math.floor((this.sum() - this.startAmount)/(todayWorkersSum/parseFloat(e.hours)))/100);
+            });
+            let participantsTable =[];
+            [...this.todayWorkers].forEach(e => {
+                participantsTable.push(e.name)});
+            this.summaries.unshift({
+                participants: participantsTable,
+                date: this.currentDate(),
+                sum: this.newTips
+            });
+
+        }
+    },
     computed: {
-        
+        todayWorkers: function() {
+            return this.czarka.filter(e => e.today);
+        },
+        newTips: function() {
+            return this.beautyAmount(this.sum() - this.startAmount);
+        }
     },
 });
 
@@ -225,5 +266,6 @@ document.querySelector('.actualization').addEventListener('click', () => {
     moneyInputs.forEach(e => {
         e.removeAttribute('readonly');
         e.style.backgroundColor = 'white';
+        document.querySelector('.tips-form').style.display = "block";
     })
 })
