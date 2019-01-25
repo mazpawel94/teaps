@@ -1,4 +1,3 @@
-
 const data = {
     czarka: [{
     name: 'Ela S',
@@ -8,6 +7,11 @@ const data = {
 {
     name: 'Ela D',
     money: 10
+},
+{
+    name: 'Kinga',
+    money: 4.50,
+    today: false
 },
 {
     name: 'Zuza',
@@ -170,7 +174,7 @@ payments: [
     },
 ],
 newEmployee: '',
-coins: [2,4,8,8,3,2,0,2,2,0],
+coins: [2,4,8,8,3,2,0,2,2,3],
 startAmount: -1,
 
 };
@@ -211,7 +215,10 @@ new Vue ({
         take10zlotys: function(worker) {
             worker.money =Math.round((worker.money -10)*100) / 100;
             this.coins[9]-=1;
-            console.log(worker, worker.money);
+            this.payments.unshift({
+                name: worker.name,
+                date: this.currentDate()
+            });
         },
 
         sum: function () {
@@ -230,25 +237,32 @@ new Vue ({
             const leadingZero = (i) => (i < 10)? '0'+i : i;
            return `${leadingZero(date.getDate())}/${leadingZero(date.getMonth()+1)}/${leadingZero(date.getFullYear())}, ${leadingZero(date.getHours())}:${leadingZero(date.getMinutes())}`;
         },
-        newCalculation: function() {
 
-            const todayWorkersSum = this.todayWorkers.reduce((e1, e2, index) =>{
+        newCalculation: function() {
+//if(this.todayWorkers.length ===1) return this.todayWorkers[0].hours;
+            let todayWorkersSum = this.todayWorkers.reduce((e1, e2, index) =>{               
                 if (index === 1)
                     return parseFloat(e1.hours) + parseFloat(e2.hours);
                 return e1 + parseFloat(e2.hours);});
-
+            if(!typeof(todayWorkersSum) != Number)
+                todayWorkersSum = this.todayWorkers[0].hours;
             this.todayWorkers.forEach(e => {
                 e.money+=(Math.floor((this.sum() - this.startAmount)/(todayWorkersSum/parseFloat(e.hours)))/100);
             });
+
             let participantsTable =[];
             [...this.todayWorkers].forEach(e => {
                 participantsTable.push(e.name)});
+
             this.summaries.unshift({
                 participants: participantsTable,
                 date: this.currentDate(),
                 sum: this.newTips
             });
 
+            document.querySelector('.tips-form').style.display = "none";
+            this.czarka.forEach(e => e.today = false);
+            this.startAmount = this.sum();
         }
     },
     computed: {
