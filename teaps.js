@@ -1,3 +1,4 @@
+
 const data = {
     czarka: [{
     name: 'Ela S',
@@ -179,6 +180,7 @@ startAmount: -1,
 
 };
     
+
 new Vue ({
     el: '#app',
     data: data,
@@ -239,12 +241,11 @@ new Vue ({
         },
 
         newCalculation: function() {
-//if(this.todayWorkers.length ===1) return this.todayWorkers[0].hours;
             let todayWorkersSum = this.todayWorkers.reduce((e1, e2, index) =>{               
                 if (index === 1)
                     return parseFloat(e1.hours) + parseFloat(e2.hours);
-                return e1 + parseFloat(e2.hours);});
-            if(!typeof(todayWorkersSum) != Number)
+                return e1 + parseFloat(e2.hours)});
+            if(this.todayWorkers.length ===1)
                 todayWorkersSum = this.todayWorkers[0].hours;
             this.todayWorkers.forEach(e => {
                 e.money+=(Math.floor((this.sum() - this.startAmount)/(todayWorkersSum/parseFloat(e.hours)))/100);
