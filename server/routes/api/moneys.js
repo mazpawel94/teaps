@@ -63,7 +63,7 @@ router.put('/pig', async(req, res) => {
 })
 
 
-// get summary
+// get summaries
 
 router.get('/summaries', async(req, res) => {
     const summaries = await loadDB('summaries');

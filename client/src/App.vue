@@ -2,18 +2,24 @@
   <div id="app">
     <Money/>
     <Employees/>
+    <Logbook/>
+    <Payments/>
   </div>
 </template>
 
 <script>
 import Money from './components/Money.vue'
 import Employees from './components/Employees.vue'
+import Logbook from './components/Logbook.vue'
+import Payments from './components/Payments.vue'
 
 export default {
   name: 'app',
   components: {
     Money,
-    Employees
+    Employees,
+    Logbook,
+    Payments
   }
 }
 </script>
