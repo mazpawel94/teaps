@@ -29,15 +29,16 @@ router.put('/moneys', async(req, res) => {
 })
 
 
+
 //getEmployees
-router.get('/api/emloyees', async (req, res) => {
+router.get('/employees', async (req, res) => {
     const employees = await loadDB('employees');
     const tab = await employees.find({}).toArray();
     // res.send(await moneys.find({}).toArray());
     res.send(tab);
 });
 //addEmployee
-router.post('api/employees', async(req, res) => {
+router.post('/employees', async(req, res) => {
     const employees = await loadDB('employees');
     await employees.insertOne({
     name: req.body.name,
@@ -47,7 +48,7 @@ router.post('api/employees', async(req, res) => {
 })
 
 //update Employee money
-router.put('api/employees', async(req, res) => {
+router.put('/employees', async(req, res) => {
     const employees = await loadDB('employees');
     await employees.updateOne({name: req.body.name},{$set: {money: req.body.money}});
     res.status(201).send();
@@ -60,6 +61,48 @@ router.put('/pig', async(req, res) => {
     await coins.updateOne({name: "pig"},{$set: {sum: req.body.sum}});
     res.status(201).send();
 })
+
+
+// get summary
+
+router.get('/summaries', async(req, res) => {
+    const summaries = await loadDB('summaries');
+    const tab = await summaries.find({}).toArray();
+    res.send(tab);
+})
+
+// add summary
+
+router.post('/summaries', async(req, res) => {
+    const summaries = await loadDB('summaries');
+    await summaries.insertOne({
+    participants: req.body.participants,
+    sum: req.body.sum,
+    date: req.body.date
+    });
+    res.status(201).send();
+})
+
+
+// get payment
+
+router.get('/payments', async(req, res) => {
+    const payments = await loadDB('payments');
+    const tab = await payments.find({}).toArray();
+    res.send(tab);
+})
+
+// add payment
+
+router.post('/payments', async(req, res) => {
+    const payments = await loadDB('payments');
+    await payments.insertOne({
+    name: req.body.name,
+    date: req.body.date
+    });
+    res.status(201).send();
+})
+
 
 async function loadDB(collectionName) {
     const client = await mongodb.MongoClient.connect
