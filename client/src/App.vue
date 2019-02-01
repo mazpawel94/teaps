@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Money/>
+    <Employees/>
   </div>
 </template>
 
 <script>
 import Money from './components/Money.vue'
+import Employees from './components/Employees.vue'
 
 export default {
   name: 'app',
   components: {
-    Money
+    Money,
+    Employees
   }
 }
 </script>

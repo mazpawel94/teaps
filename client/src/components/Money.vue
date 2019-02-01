@@ -42,7 +42,6 @@
 import DBService from '../DBService';
 
 export default {
-  name: 'HelloWorld',
   data() {
     return {
       error: '',
@@ -69,11 +68,11 @@ export default {
           await DBService.saveSum(this.beautyAmount(this.sum()));
           for(let i=0; i< this.coins.length; i++)
             await DBService.saveCoins(this.coins[i].coin, this.coins[i].amount);
-          console.log("ewryfink is gud");
+          // console.log("ewryfink is gud");
           }
           catch(err) {
             this.error = err;
-            console.log("samfing");
+            // console.log("samfing");
           }
     },
 
