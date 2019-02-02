@@ -15,16 +15,16 @@
                 <img src="../img/4213d4154183bc179091bdbadd46.jpg" alt="">
             </div>
             <div class="inputs">
-                <input type="number" name='one-penny' data-penny=1  v-model="coins[0].amount">
-                <input type="number" name='two-penny' data-penny=2  v-model="coins[1].amount">
-                <input type="number" name='five-penny' data-penny=5  v-model="coins[2].amount">
-                <input type="number" name='ten-penny' data-penny=10  v-model="coins[3].amount">
-                <input type="number" name='twenty-penny' data-penny=20  v-model="coins[4].amount">
-                <input type="number" name='fifty-penny' data-penny=50  v-model="coins[5].amount">
-                <input type="number" name='one-zloty' data-penny=100  v-model="coins[6].amount">
-                <input type="number" name='two-zlotys' data-penny=200  v-model="coins[7].amount">
-                <input type="number" name='five-zlotys' data-penny=500  v-model="coins[8].amount">
-                <input type="number" name='ten-zlotys' data-penny=1000  v-model="coins[9].amount">
+                <input type="number" name='one-penny' data-penny=1  v-model="coins[0].amount" @input="emitSum">
+                <input type="number" name='two-penny' data-penny=2  v-model="coins[1].amount" @input="emitSum">
+                <input type="number" name='five-penny' data-penny=5  v-model="coins[2].amount" @input="emitSum">
+                <input type="number" name='ten-penny' data-penny=10  v-model="coins[3].amount" @input="emitSum">
+                <input type="number" name='twenty-penny' data-penny=20  v-model="coins[4].amount" @input="emitSum">
+                <input type="number" name='fifty-penny' data-penny=50  v-model="coins[5].amount" @input="emitSum">
+                <input type="number" name='one-zloty' data-penny=100  v-model="coins[6].amount" @input="emitSum">
+                <input type="number" name='two-zlotys' data-penny=200  v-model="coins[7].amount" @input="emitSum">
+                <input type="number" name='five-zlotys' data-penny=500  v-model="coins[8].amount" @input="emitSum">
+                <input type="number" name='ten-zlotys' data-penny=1000  v-model="coins[9].amount" @input="emitSum">
             </div>
             <!-- tymczasowy button do zapisu do bazy -->
             <button class = "save-changes" @click= "newCalculation">Zapisz zmiany</button>
@@ -47,12 +47,13 @@ export default {
       error: '',
       text: '',
      coins: [],
-     startAmount: -1,
+     startAmount: 0,
     }
   },
   async created() {
     try {
      this.coins = await DBService.getMoneys();
+     this.startAmount = this.sum();
     // [...coinsBase].map((e,i) => {
     //   this.coins[i] = e.amount;
     }
@@ -75,20 +76,32 @@ export default {
             // console.log("samfing");
           }
     },
-
+    emitSum: function () {
+        this.$emit('input', this.newTips);
+    },
     sum: function () {
             const sum = this.coins[0].amount*1 + this.coins[1].amount*2 + this.coins[2].amount*5 + this.coins[3].amount*10 + this.coins[4].amount*20 + this.coins[5].amount*50 + this.coins[6].amount*100 + this.coins[7].amount*200 + this.coins[8].amount*500 + this.coins[9].amount*1000;
             return sum;
         
         },
-
         beautyAmount: function(amount) {
-            return ` ${Math.floor(amount/100)},${amount%100 <10 ? amount%100 + "0" : amount%100} zł`;
+            return ` ${Math.floor(amount/100)},${amount%100 <10 ? "0" + amount%100 : amount%100} zł`;
         },
         startPiggyValue: function() {
             if(this.startAmount===-1) this.startAmount = this.sum();
             document.querySelector('.start-amount').innerHTML = 'Przed: ' + this.beautyAmount(this.startAmount);
         },
+        // newTips: function() {
+        //     console.log('działąm');
+        //     return this.beautyAmount(this.sum() - this.startAmount);
+        // }
+        },
+        computed: {
+          newTips: function() {
+            //   console.log(this.startAmount, this.sum(), this.sum() - this.startAmount);
+            // return this.beautyAmount(this.sum() - this.startAmount);
+            return this.sum() - this.startAmount;
+        }
         }
   }
 

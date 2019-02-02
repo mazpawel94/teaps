@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <Money/>
-    <Employees/>
-    <Logbook/>
-    <Payments/>
+     <money v-model='newTips'/>
+    <employees v-model='todayWorkers'/>
+    <logbook/>
+    <payments/>
+    <tips-form :newTips='newTips' :todayWorkers='todayWorkers'/>
   </div>
 </template>
 
@@ -12,14 +13,23 @@ import Money from './components/Money.vue'
 import Employees from './components/Employees.vue'
 import Logbook from './components/Logbook.vue'
 import Payments from './components/Payments.vue'
+import TipsForm from './components/TipsForm.vue'
 
 export default {
   name: 'app',
+  data() {
+    return{
+      todayWorkers: [],
+      newTips: ''
+
+      }
+  },
   components: {
     Money,
     Employees,
     Logbook,
-    Payments
+    Payments,
+    TipsForm
   }
 }
 </script>

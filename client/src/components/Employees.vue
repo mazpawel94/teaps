@@ -1,8 +1,8 @@
 <template>
     <div class="employees">
 
-        <div class="employee" v-for='worker in workers' v-bind:key="worker._id">
-            <input type="checkbox" v-model="worker.today">
+        <div class="employee" v-for='(worker, index) in workers' v-bind:key="worker._id">
+            <input type="checkbox" v-model="worker.today" @click="emitTodayWorkers(index)">
             <div class="name">{{worker.name}}</div>
             <div class="sum" v-if="worker.money>0" :style="{ width: worker.money * 30 + 'px' }">{{worker.money.toFixed(2) + ' zł'}}
             <div class="start-amount"></div>
@@ -12,7 +12,7 @@
 
         
         <div class="employee new">
-            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="" >
             <input class='new-employee' type="text" placeholder="nowa osoba" v-model='newEmployee'>
             <button @click='addEmployee'>+</button></div>
 
@@ -43,6 +43,9 @@ export default {
 
   methods: {
 
+     todayWorkers: function() {
+            return this.workers.filter(e => e.today);
+        },
       checkName: function(newName) {
             let uniqueName = true;
             [...this.workers].forEach(e => {
@@ -67,7 +70,12 @@ export default {
                 alert('Istnieje osoba o takim imieniu, dodaj pierwszą literę nazwiska lub inny identyfikujący Cię element');
             }           
         },
+        emitTodayWorkers: function(index) {
 
+            this.workers[index].today = !this.workers[index].today; //konieczne, ponieważ razie zdarzenie jest wywoływane przed aktualizacją checkboxa
+            const tab = this.todayWorkers();
+            this.$emit('input', tab);
+        },
         async addEmployeeToBase(name) {
             try {
                 await DBService.addEmployee(name);
@@ -75,8 +83,15 @@ export default {
             catch (error){
                 this.error = error;
       }
-     }
-  }
+     },
+
+  },
+
+//   computed: {
+//       todayWorkers: function() {
+//             return this.workers.filter(e => e.today);
+//         },
+//   }
 }
 
   </script>

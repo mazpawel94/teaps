@@ -88,6 +88,13 @@ class DBService {
         )
     }
 
+    static addEmployeeMoney(name, amount) {
+        return axios.put(url2, {
+            name:name,
+            money: amount
+        });
+    }
+
 
     static getSummaries() {
         return new Promise(async (resolve, reject) => {
@@ -108,6 +115,13 @@ class DBService {
         })
     }
 
+    static addSummary(date, participants, sum) {
+        return axios.post(url3, {
+            participants: participants,
+            sum: sum,
+            date: date,
+        });
+    }
 
     static addPayment(name, date) {
         return new Promise(async (resolve, reject) => {

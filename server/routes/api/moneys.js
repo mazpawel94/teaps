@@ -78,7 +78,8 @@ router.post('/summaries', async(req, res) => {
     await summaries.insertOne({
     participants: req.body.participants,
     sum: req.body.sum,
-    date: req.body.date
+    date: req.body.date,
+    moneyInPig: req.body.moneyInPig
     });
     res.status(201).send();
 })
