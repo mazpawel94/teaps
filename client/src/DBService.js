@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const url = 'http://localhost:5000/api/moneys';
-const url2 = 'http://localhost:5000/api/employees';
-const url3 = 'http://localhost:5000/api/summaries';
-const url4 = 'http://localhost:5000/api/payments';
+const url = 'api/moneys';
+const url2 = 'api/employees';
+const url3 = 'api/summaries';
+const url4 = 'api/payments';
 class DBService {
 
     static getMoneys() {
@@ -26,7 +26,7 @@ class DBService {
     }
 
     static saveSum(sum) {
-        return axios.put('http://localhost:5000/api/pig', {
+        return axios.put('api/pig', {
                     sum: sum
                 });
     }
@@ -34,7 +34,7 @@ class DBService {
     static getSum() {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.get('http://localhost:5000/api/pig');
+                const res = await axios.get('api/pig');
                 const data = res.data;
                 resolve(data);
                 // resolve(data);
