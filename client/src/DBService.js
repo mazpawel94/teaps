@@ -26,33 +26,32 @@ class DBService {
     }
 
     static saveSum(sum) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const res = await axios.put('http://localhost:5000/api/pig', {
+        return axios.put('http://localhost:5000/api/pig', {
                     sum: sum
                 });
-                resolve(res);
+    }
 
-            } catch (error) {
-                reject(error);
+    static getSum() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get('http://localhost:5000/api/pig');
+                const data = res.data;
+                resolve(data);
+                // resolve(data);
+            }
+            catch (err) {
+                reject(err);
+                
             }
         })
     }
 
     static saveCoins(coin, amount) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const res = await axios.put(url, {
+   return axios.put(url, {
                     coin: coin,
                     amount: amount
                 });
-                resolve(res);
-            } catch (error) {
-                reject(error);
             }
-        }
-        )
-    }
 
     static getEmployees() {
         return new Promise(async (resolve, reject) => {

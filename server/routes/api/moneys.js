@@ -62,6 +62,12 @@ router.put('/pig', async(req, res) => {
     res.status(201).send();
 })
 
+//get pig 
+router.get('/pig', async (req, res) => {
+    const startValue = await loadDB('pig');
+    const tab = await startValue.find({}).toArray();
+    res.send(tab);
+});
 
 // get summaries
 
@@ -79,7 +85,6 @@ router.post('/summaries', async(req, res) => {
     participants: req.body.participants,
     sum: req.body.sum,
     date: req.body.date,
-    moneyInPig: req.body.moneyInPig
     });
     res.status(201).send();
 })

@@ -7,7 +7,7 @@
                 <div class="stuff">Czarkownicy</div>
                 <div class="amount">Kwota</div>
             </div>
-            <div class="day" v-for='summary in summaries' v-bind:key="summary.date">
+            <div class="day" v-for='summary in summaries.slice().reverse()' v-bind:key="summary.date">
                 <div class="date">{{summary.date}}</div>
                 <div class="stuff">{{summary.participants}}</div>
                 <div class="amount">{{summary.sum}}</div>
@@ -31,12 +31,18 @@ export default {
 async created() {
     try {
        this.summaries = await DBService.getSummaries();
-       console.log(this.summaries);
+    //    console.log(this.summaries);
     } catch (error) {
         this.error = error;
     }
-    } 
+    },
+computed: {
+    order() {
+        return this.summaries.reverse();
+    }
+} 
 }
+
 </script>
 
 <style scoped>

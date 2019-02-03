@@ -1,7 +1,6 @@
 <template>
-  <div class="tips-form">
-    <h3>+{{beautyAmount(newTips)}}</h3>
-
+  <div class="tips-form" v-if="visible && (coins.length || todayWorkers.length)">
+    <h3 v-if="coins.length">{{beautyAmount(sum() - startAmount)}}</h3>
     <ul>
       <li v-for="worker in todayWorkers" v-bind:key="worker.name">
         <span>{{worker.name}}</span>
@@ -18,15 +17,33 @@
 
 <script>
 import DBService from "../DBService";
-
 export default {
-  props: ["newTips", "todayWorkers"],
+    data() {
+        return {
+            startAmount: 1,
+            visible: true
+        }
+    },
+  props: ["coins", "todayWorkers"],
+  async created() {
+      try {
+          const a = await DBService.getSum();
+          this.startAmount = a[0].sum;
+      } catch (error) {
+      }
+      
+  },
   methods: {
     beautyAmount: function(amount) {
       return ` ${Math.floor(amount / 100)},${
         amount % 100 < 10 ? "0" + (amount % 100) : amount % 100
       } zł`;
     },
+      sum: function () {
+            const sum = this.coins[0].amount*1 + this.coins[1].amount*2 + this.coins[2].amount*5 + this.coins[3].amount*10 + this.coins[4].amount*20 + this.coins[5].amount*50 + this.coins[6].amount*100 + this.coins[7].amount*200 + this.coins[8].amount*500 + this.coins[9].amount*1000;
+            return sum;
+        
+        },
 
     currentDate: function() {
       let date = new Date();
@@ -38,6 +55,7 @@ export default {
       )}:${leadingZero(date.getMinutes())}`;
     },
     newCalculation: function() {
+        this.visible=false;
       let todayWorkersSum = this.todayWorkers.reduce((e1, e2, index) => {
         if (index === 1) return parseFloat(e1.hours) + parseFloat(e2.hours);
         return e1 + parseFloat(e2.hours);
@@ -48,34 +66,51 @@ export default {
         e.money +=
           Math.floor(this.newTips / (todayWorkersSum / parseFloat(e.hours))) /
           100;
-        console.log(this.newTips, e.money);
-        this.saveToBase(e.name, e.money);
+        this.saveEmployeeToBase(e.name, e.money);
       });
       let participantsTable =[];
             [...this.todayWorkers].forEach(e => {
                 participantsTable.push(e.name)});
       this.saveSummaryToBase(this.currentDate(), participantsTable.join(', '), this.beautyAmount(this.newTips));
+      this.saveSum(this.sum());
+      [...this.coins].forEach(e=> {
+          this.saveToBaseCoin(e.coin, e.amount);
+      })
       ;
-
     },
-    async saveToBase(name, money) {
+    async saveEmployeeToBase(name, money) {
       try {
         await DBService.addEmployeeMoney(name, money);
-        console.log(money);
       } catch (error) {
-        console.log("coś się zepsło");
       }
     },
-
     async saveSummaryToBase(date, participants,sum) {
         try {
             await DBService.addSummary(date, participants, sum);
-            console.log(date, participants, sum);
         } catch (error) {
-            console.log("coś się zepsło");
         }
-    }
-  }
+    },
+    async saveSum(sum) {
+      try {
+        await DBService.saveSum(sum);
+      } catch (error) {
+      }
+    },
+    async saveToBaseCoin(name, money) {
+      try {
+        await DBService.saveCoins(name, money);
+      } catch (error) {
+      }
+    },
+
+  },
+
+   computed: {
+          newTips: function() {
+              if(!this.coins.length) return 0;
+            return this.sum() - this.startAmount;
+        }
+        }
 };
 </script>
 
@@ -88,10 +123,9 @@ export default {
   border-radius: 15px;
   width: 300px;
   height: 250px;
-  top: 18%;
-  left: 27%;
+  top: 300px;
+  left: 12%;
 }
-
 .tips-form h3 {
   text-align: center;
 }
@@ -106,18 +140,15 @@ export default {
   padding: 5px;
   list-style-type: none;
 }
-
 .tips-form span {
   display: inline-block;
   min-width: 90px;
   margin-left: 15px;
 }
-
 .tips-form select {
   background-color: rgb(196, 221, 114);
   border: none;
 }
-
 .tips-form button {
   cursor: pointer;
   position: absolute;

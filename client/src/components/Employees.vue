@@ -32,6 +32,7 @@ export default {
      newEmployee: ''
     }
   },
+   props: ["coins"],
 
   async created() {
       try {
@@ -70,6 +71,35 @@ export default {
                 alert('Istnieje osoba o takim imieniu, dodaj pierwszą literę nazwiska lub inny identyfikujący Cię element');
             }           
         },
+
+    currentDate: function() {
+      let date = new Date();
+      const leadingZero = i => (i < 10 ? "0" + i : i);
+      return `${leadingZero(date.getDate())}/${leadingZero(
+        date.getMonth() + 1
+      )}/${leadingZero(date.getFullYear())}, ${leadingZero(
+        date.getHours()
+      )}:${leadingZero(date.getMinutes())}`;
+    },
+
+        take10zlotys: function(worker) {
+            worker.money =Math.round((worker.money -10)*100) / 100;
+            // this.coins[9]-=1;
+            // this.payments.unshift({
+            //     name: worker.name,
+            //     date: this.currentDate()
+            // });
+            this.addEmployeeMoney(worker.name, worker.money);
+            this.addPayment(worker.name, this.currentDate());
+            this.getMoneyFromPig();
+            this.refreshSum();
+
+        },
+        sum: function () {
+            const sum = this.coins[0].amount*1 + this.coins[1].amount*2 + this.coins[2].amount*5 + this.coins[3].amount*10 + this.coins[4].amount*20 + this.coins[5].amount*50 + this.coins[6].amount*100 + this.coins[7].amount*200 + this.coins[8].amount*500 + this.coins[9].amount*1000;
+            return sum;
+        
+        },
         emitTodayWorkers: function(index) {
 
             this.workers[index].today = !this.workers[index].today; //konieczne, ponieważ razie zdarzenie jest wywoływane przed aktualizacją checkboxa
@@ -79,6 +109,42 @@ export default {
         async addEmployeeToBase(name) {
             try {
                 await DBService.addEmployee(name);
+        } 
+            catch (error){
+                this.error = error;
+      }
+     },
+
+     async addEmployeeMoney(name, money) {
+            try {
+                await DBService.addEmployeeMoney(name, money);
+        } 
+            catch (error){
+                this.error = error;
+      }
+     },
+
+     async addPayment(name, date) {
+            try {
+                await DBService.addPayment(name, date);
+        } 
+            catch (error){
+                this.error = error;
+      }
+     },
+
+     async getMoneyFromPig() {
+            try {
+                await DBService.saveCoins('10 złotych', (this.coins[9].amount)-1);
+        } 
+            catch (error){
+                this.error = error;
+      }
+     },
+
+     async refreshSum() {
+            try {
+                await DBService.saveSum(this.sum()-1000);
         } 
             catch (error){
                 this.error = error;

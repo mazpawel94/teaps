@@ -26,21 +26,16 @@
                 <input type="number" name='five-zlotys' data-penny=500  v-model="coins[8].amount" @input="emitSum">
                 <input type="number" name='ten-zlotys' data-penny=1000  v-model="coins[9].amount" @input="emitSum">
             </div>
-            <!-- tymczasowy button do zapisu do bazy -->
-            <button class = "save-changes" @click= "newCalculation">Zapisz zmiany</button>
         </div>
         <div class="pig">
             <div class="amount">{{beautyAmount(sum())}}</div> <img src="../img/piggy-bank-1001599_640.png" alt="">
             <div class="start-amount"></div>
         </div>
-        <button class="actualization" @click="startPiggyValue"> aktualizuj</button>
     </div>
 </template>
 
 <script>
-
 import DBService from '../DBService';
-
 export default {
   data() {
     return {
@@ -54,8 +49,6 @@ export default {
     try {
      this.coins = await DBService.getMoneys();
      this.startAmount = this.sum();
-    // [...coinsBase].map((e,i) => {
-    //   this.coins[i] = e.amount;
     }
     catch(err) {
       this.error = err;
@@ -63,21 +56,20 @@ export default {
   },
   
   methods : {
-
     async newCalculation() {
       try {
           await DBService.saveSum(this.beautyAmount(this.sum()));
           for(let i=0; i< this.coins.length; i++)
             await DBService.saveCoins(this.coins[i].coin, this.coins[i].amount);
-          // console.log("ewryfink is gud");
           }
           catch(err) {
             this.error = err;
-            // console.log("samfing");
           }
     },
     emitSum: function () {
-        this.$emit('input', this.newTips);
+        // this.$emit('input', this.newTips);
+        const tab = this.coins;
+        this.$emit('input', tab);
     },
     sum: function () {
             const sum = this.coins[0].amount*1 + this.coins[1].amount*2 + this.coins[2].amount*5 + this.coins[3].amount*10 + this.coins[4].amount*20 + this.coins[5].amount*50 + this.coins[6].amount*100 + this.coins[7].amount*200 + this.coins[8].amount*500 + this.coins[9].amount*1000;
@@ -87,31 +79,19 @@ export default {
         beautyAmount: function(amount) {
             return ` ${Math.floor(amount/100)},${amount%100 <10 ? "0" + amount%100 : amount%100} zł`;
         },
-        startPiggyValue: function() {
-            if(this.startAmount===-1) this.startAmount = this.sum();
-            document.querySelector('.start-amount').innerHTML = 'Przed: ' + this.beautyAmount(this.startAmount);
-        },
-        // newTips: function() {
-        //     console.log('działąm');
-        //     return this.beautyAmount(this.sum() - this.startAmount);
-        // }
         },
         computed: {
           newTips: function() {
-            //   console.log(this.startAmount, this.sum(), this.sum() - this.startAmount);
-            // return this.beautyAmount(this.sum() - this.startAmount);
             return this.sum() - this.startAmount;
         }
         }
   }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .money  {
     float: left;
-
 min-width: 40%;
 min-height: 50vh;
   display: flex;
@@ -119,8 +99,6 @@ min-height: 50vh;
   /* background-color: rgba(255, 255, 255, 0.5);
   border-radius: 5%; */
 }
-
-
 .money input {
     width: 40px;
     height: 30px;
@@ -131,7 +109,6 @@ min-height: 50vh;
     border-radius: 5px;
     background-color: rgb(231, 224, 224);
 }
-
 .money .summary {
     margin-top: 20px;
     flex-basis: 30%;
@@ -144,14 +121,13 @@ min-height: 50vh;
 .money .pig {
     /* background-color: rgba(255, 255, 255, 0.178); */
     /* flex-basis: 35%; */
-    flex-grow: 1;
+    /* flex-grow: 1; */
     text-align: center;
     position: relative;
 }
 .money .pig img{
     height: 200px;
 }
-
 .pig .amount {
     position: absolute;
     font-size: 35px;
@@ -160,8 +136,6 @@ min-height: 50vh;
     transform: translate(-50%, -50%);
     color: rgb(208, 211, 30)
 }
-
-
 .money button{
     cursor: pointer;
     width: 150px;
@@ -176,10 +150,8 @@ min-height: 50vh;
     font-size: 16px;
     transition: .2s;
 }
-
 .money button:hover {
    transform: translate(-2px,-30px) scale(1.2);
    box-shadow: 0 0 35px 1px black;
 }
-
 </style>

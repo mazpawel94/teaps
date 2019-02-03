@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-     <money v-model='newTips'/>
-    <employees v-model='todayWorkers'/>
+     <money v-model='coins'/>
+    <employees v-model='todayWorkers' :coins='coins'/>
     <logbook/>
     <payments/>
-    <tips-form :newTips='newTips' :todayWorkers='todayWorkers'/>
+    <tips-form :coins='coins' :todayWorkers='todayWorkers'/>
   </div>
 </template>
 
@@ -20,8 +20,7 @@ export default {
   data() {
     return{
       todayWorkers: [],
-      newTips: ''
-
+      coins: [],
       }
   },
   components: {
