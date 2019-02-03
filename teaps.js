@@ -51,61 +51,61 @@ summaries: [
     date: '19/01/2019',
     sum: 8.24
     },
-    {
-    participants: ['Ela D.', 'Patrycja', 'Przemek', 'Olga'],
-    date: '18/01/2019',
-    sum: 15.50
-    },
-    {
-    participants: ['Ela D.', 'Patrycja', 'Przemek'],
-    date: '20/01/2019',
-    sum: 13
-    },
-    {
-    participants: ['Ela S.', 'Zuza', 'Paweł'],
-    date: '19/01/2019',
-    sum: 8.24
-    },
-    {
-    participants: ['Ela D.', 'Patrycja', 'Przemek', 'Olga'],
-    date: '18/01/2019',
-    sum: 15.50
-    },
-    {
-    participants: ['Ela D.', 'Patrycja', 'Przemek'],
-    date: '20/01/2019',
-    sum: 13
-    },
-    {
-    participants: ['Ela S.', 'Zuza', 'Paweł'],
-    date: '19/01/2019',
-    sum: 8.24
-    },
-    {
-    participants: ['Ela D.', 'Patrycja', 'Przemek', 'Olga'],
-    date: '18/01/2019',
-    sum: 15.50
-    },
-    {
-    participants: ['Ela D.', 'Patrycja', 'Przemek'],
-    date: '20/01/2019',
-    sum: 13
-    },
-    {
-    participants: ['Ela S.', 'Zuza', 'Paweł'],
-    date: '19/01/2019',
-    sum: 8.24
-    },
-    {
-    participants: ['Ela D.', 'Patrycja', 'Przemek', 'Olga'],
-    date: '18/01/2019',
-    sum: 15.50
-    },
-    {
-    participants: ['Ela D.', 'Patrycja', 'Przemek'],
-    date: '20/01/2019',
-    sum: 13
-    },
+    // {
+    // participants: ['Ela D.', 'Patrycja', 'Przemek', 'Olga'],
+    // date: '18/01/2019',
+    // sum: 15.50
+    // },
+    // {
+    // participants: ['Ela D.', 'Patrycja', 'Przemek'],
+    // date: '20/01/2019',
+    // sum: 13
+    // },
+    // {
+    // participants: ['Ela S.', 'Zuza', 'Paweł'],
+    // date: '19/01/2019',
+    // sum: 8.24
+    // },
+    // {
+    // participants: ['Ela D.', 'Patrycja', 'Przemek', 'Olga'],
+    // date: '18/01/2019',
+    // sum: 15.50
+    // },
+    // {
+    // participants: ['Ela D.', 'Patrycja', 'Przemek'],
+    // date: '20/01/2019',
+    // sum: 13
+    // },
+    // {
+    // participants: ['Ela S.', 'Zuza', 'Paweł'],
+    // date: '19/01/2019',
+    // sum: 8.24
+    // },
+    // {
+    // participants: ['Ela D.', 'Patrycja', 'Przemek', 'Olga'],
+    // date: '18/01/2019',
+    // sum: 15.50
+    // },
+    // {
+    // participants: ['Ela D.', 'Patrycja', 'Przemek'],
+    // date: '20/01/2019',
+    // sum: 13
+    // },
+    // {
+    // participants: ['Ela S.', 'Zuza', 'Paweł'],
+    // date: '19/01/2019',
+    // sum: 8.24
+    // },
+    // {
+    // participants: ['Ela D.', 'Patrycja', 'Przemek', 'Olga'],
+    // date: '18/01/2019',
+    // sum: 15.50
+    // },
+    // {
+    // participants: ['Ela D.', 'Patrycja', 'Przemek'],
+    // date: '20/01/2019',
+    // sum: 13
+    // },
     {
     participants: ['Ela S.', 'Zuza', 'Paweł'],
     date: '19/01/2019',

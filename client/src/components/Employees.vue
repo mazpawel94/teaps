@@ -166,7 +166,7 @@ export default {
   .employees {
     margin-top: 20px;
     margin-left: 10px;
-    width: 850px;
+    /* width: 850px; */
     background-color: rgba(21, 77, 77, 0.459);
     border: rgb(21, 77, 77) 2px solid;
     border-radius: 50px;

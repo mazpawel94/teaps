@@ -94,6 +94,7 @@ h2 {
     width: 20%;
 }
 
+
 .day:nth-of-type(2n) {
     background-color: rgba(119, 97, 97, 0.342);
 }
@@ -111,5 +112,27 @@ height: 20px;;
 .table::-webkit-scrollbar-thumb {
 background-color: rgba(41, 57, 148, 0.794);
 border-radius: 25px;
+}
+
+/* .latest-payouts h2 {
+color: white;
+} */
+.latest-payouts .date {
+width: 40%;
+}
+.latest-payouts .stuff {
+width: 70%;
+}
+
+.latest-payouts .table {
+width: 400px;
+margin: auto;
+max-height: 305px;
+overflow: hidden;
+background-color: rgba(224, 223, 207, 0.548);
+}
+
+[draggable=true] {
+    cursor: move;
 }
 </style>
