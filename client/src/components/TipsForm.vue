@@ -1,5 +1,5 @@
 <template>
-  <div class="tips-form" v-if="visible && (coins.length || todayWorkers.length)">
+  <div class="tips-form" v-if="visible && (newTips || todayWorkers.length)">
     <h3 v-if="coins.length">{{beautyAmount(sum() - startAmount)}}</h3>
     <ul>
       <li v-for="worker in todayWorkers" v-bind:key="worker.name">
@@ -62,21 +62,29 @@ export default {
       });
       if (this.todayWorkers.length === 1)
         todayWorkersSum = this.todayWorkers[0].hours;
+      const todayName = [];
+      const todayMoney = [];
       this.todayWorkers.forEach(e => {
         e.money +=
           Math.floor(this.newTips / (todayWorkersSum / parseFloat(e.hours))) /
           100;
-        this.saveEmployeeToBase(e.name, e.money);
+        todayName.push(e.name);
+        todayMoney.push(e.money);
       });
+      this.saveEmployeeToBase(todayName, todayMoney);
       let participantsTable =[];
             [...this.todayWorkers].forEach(e => {
                 participantsTable.push(e.name)});
       this.saveSummaryToBase(this.currentDate(), participantsTable.join(', '), this.beautyAmount(this.newTips));
       this.saveSum(this.sum());
+      const coinsName = [];
+      const coinsAmount = [];
       [...this.coins].forEach(e=> {
-          this.saveToBaseCoin(e.coin, e.amount);
-      })
-      ;
+        coinsName.push(e.coin);
+        coinsAmount.push(e.amount);
+          
+      });
+      this.saveToBaseCoin(coinsName, coinsAmount);     
     },
     async saveEmployeeToBase(name, money) {
       try {

@@ -84,11 +84,7 @@ export default {
 
         take10zlotys: function(worker) {
             worker.money =Math.round((worker.money -10)*100) / 100;
-            // this.coins[9]-=1;
-            // this.payments.unshift({
-            //     name: worker.name,
-            //     date: this.currentDate()
-            // });
+            this.coins[9].amount-=1;
             this.addEmployeeMoney(worker.name, worker.money);
             this.addPayment(worker.name, this.currentDate());
             this.getMoneyFromPig();
@@ -117,7 +113,7 @@ export default {
 
      async addEmployeeMoney(name, money) {
             try {
-                await DBService.addEmployeeMoney(name, money);
+                await DBService.addEmployeeMoney([name], [money]);
         } 
             catch (error){
                 this.error = error;
@@ -135,7 +131,7 @@ export default {
 
      async getMoneyFromPig() {
             try {
-                await DBService.saveCoins('10 złotych', (this.coins[9].amount)-1);
+                await DBService.saveCoins(['10 złotych'], [this.coins[9].amount]);
         } 
             catch (error){
                 this.error = error;
@@ -144,7 +140,7 @@ export default {
 
      async refreshSum() {
             try {
-                await DBService.saveSum(this.sum()-1000);
+                await DBService.saveSum(this.sum());
         } 
             catch (error){
                 this.error = error;
@@ -153,11 +149,6 @@ export default {
 
   },
 
-//   computed: {
-//       todayWorkers: function() {
-//             return this.workers.filter(e => e.today);
-//         },
-//   }
 }
 
   </script>

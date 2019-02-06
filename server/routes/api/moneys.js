@@ -3,7 +3,13 @@ const mongodb = require('mongodb');
 
 const router = express.Router();
 
-
+async function loadDB(collectionName) {
+    const client = await mongodb.MongoClient.connect
+     ('mongodb://czarka:keemun1@ds141813.mlab.com:41813/teaps', {
+         useNewUrlParser: true
+     });
+     return client.db('teaps').collection(`${collectionName}`);
+    }
 //getMoneyValue
 router.get('/moneys', async (req, res) => {
     const moneys = await loadDB('moneys');
@@ -24,7 +30,10 @@ router.post('/moneys', async(req, res) => {
 //update moneys
 router.put('/moneys', async(req, res) => {
     const coins = await loadDB('moneys');
-    await coins.updateOne({coin: req.body.coin},{$set: {amount: req.body.amount}});
+    const coin = req.body.coin;
+    const amount = req.body.amount;
+    for(let i=0;i<coin.length;i++)
+        await coins.updateOne({coin: coin[i]},{$set: {amount: amount[i]}});
     res.status(201).send();
 })
 
@@ -50,7 +59,10 @@ router.post('/employees', async(req, res) => {
 //update Employee money
 router.put('/employees', async(req, res) => {
     const employees = await loadDB('employees');
-    await employees.updateOne({name: req.body.name},{$set: {money: req.body.money}});
+    const name = req.body.name;
+    const money = req.body.money;
+    for(let i=0;i<name.length;i++)
+        await employees.updateOne({name: name[i]},{$set: {money: money[i]}});
     res.status(201).send();
 })
 
@@ -110,12 +122,6 @@ router.post('/payments', async(req, res) => {
 })
 
 
-async function loadDB(collectionName) {
-    const client = await mongodb.MongoClient.connect
-     ('mongodb://czarka:keemun1@ds141813.mlab.com:41813/teaps', {
-         useNewUrlParser: true
-     });
-     return client.db('teaps').collection(`${collectionName}`);
-    }
+
 
 module.exports = router;

@@ -49,6 +49,7 @@ export default {
     try {
      this.coins = await DBService.getMoneys();
      this.startAmount = this.sum();
+     this.emitSum();
     }
     catch(err) {
       this.error = err;
