@@ -1,5 +1,7 @@
 <template>
+    <div>
   <div class="tips-form" v-if="visible && (newTips || todayWorkers.length)">
+  <!-- <div class="tips-form" v-if="newTips || todayWorkers.length"> -->
     <h3 v-if="coins.length">{{beautyAmount(sum() - startAmount)}}</h3>
     <ul>
       <li v-for="worker in todayWorkers" v-bind:key="worker.name">
@@ -12,6 +14,11 @@
       </li>
     </ul>
     <button class="save-changes" @click="newCalculation">Zapisz zmiany</button>
+  </div>    
+    <div class="saved-status" v-if="successSave">
+      <span v-if="successSave<4"> Trwa zapis... <br>{{(successSave/4) * 100}}%</span>
+      <span v-else> Zapis danych zakończony sukcesem!<br><button @click="successSave = 0"> Zamknij</button></span>  
+  </div>
   </div>
 </template>
 
@@ -21,7 +28,9 @@ export default {
     data() {
         return {
             startAmount: 1,
-            visible: true
+            visible: true,
+            successSave: 0,
+            error: ''
         }
     },
   props: ["coins", "todayWorkers"],
@@ -30,6 +39,7 @@ export default {
           const a = await DBService.getSum();
           this.startAmount = a[0].sum;
       } catch (error) {
+        this.error = error;
       }
       
   },
@@ -89,25 +99,33 @@ export default {
     async saveEmployeeToBase(name, money) {
       try {
         await DBService.addEmployeeMoney(name, money);
+        this.successSave++;
       } catch (error) {
+        this.error = error;
       }
     },
     async saveSummaryToBase(date, participants,sum) {
         try {
             await DBService.addSummary(date, participants, sum);
+            this.successSave++;
         } catch (error) {
+          this.error = error;
         }
     },
     async saveSum(sum) {
       try {
         await DBService.saveSum(sum);
+        this.successSave++;
       } catch (error) {
+        this.error = error;
       }
     },
     async saveToBaseCoin(name, money) {
       try {
         await DBService.saveCoins(name, money);
+        this.successSave++;
       } catch (error) {
+        this.error = error;
       }
     },
 
@@ -170,5 +188,17 @@ export default {
   padding: 5px;
   border-radius: 10px;
   font-size: 15px;
+}
+
+.saved-status {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(199, 164, 11);
+  width: 400px;
+  height: 100px;
+  text-align: center;
+  line-height: 50px;
 }
 </style>

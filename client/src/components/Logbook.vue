@@ -31,7 +31,6 @@ export default {
 async created() {
     try {
        this.summaries = await DBService.getSummaries();
-    //    console.log(this.summaries);
     } catch (error) {
         this.error = error;
     }
@@ -58,6 +57,7 @@ computed: {
     width: 100%;
     height: 400px;
     overflow-y: scroll;
+    overflow-x: hidden;
 
 
 }
