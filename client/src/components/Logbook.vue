@@ -35,11 +35,6 @@ async created() {
         this.error = error;
     }
     },
-computed: {
-    order() {
-        return this.summaries.reverse();
-    }
-} 
 }
 
 </script>
@@ -51,46 +46,43 @@ computed: {
     text-align: center;
     float: left;
 }
-.logbook .table {
+.table {
     background-color: rgba(224, 223, 207, 0.548);
     margin: auto;
     width: 100%;
-    height: 400px;
-    overflow-y: scroll;
+    height: 200px;
     overflow-x: hidden;
-
-
+    overflow-y: scroll;
 }
 h2 {
     text-align: center;
     text-transform: uppercase;
     margin-bottom: 15px;
-
 }
 
-.table .nav, .table .day {
+.nav, .day {
     width: 100%;
     display: flex;
     text-align: center;
     padding: 5px;
 }
 
-.logbook .nav, .latest-payouts .nav {
+.nav{
     font-weight: bold;
     background-color: rgb(27, 151, 11);
     color: white;
     letter-spacing: 1.5px;
     padding: 15px;
 }
-.logbook .date {
+.date {
     width: 20%;
 }
 
-.logbook .stuff {
+.stuff {
     width: 65%;
 }
 
-.logbook .amount {
+.amount {
     width: 20%;
 }
 
@@ -102,7 +94,7 @@ h2 {
 
 .table::-webkit-scrollbar {
 width: 5px;
-height: 20px;;
+height: 20px;
 }
 
 .table::-webkit-scrollbar-track {
@@ -114,25 +106,4 @@ background-color: rgba(41, 57, 148, 0.794);
 border-radius: 25px;
 }
 
-/* .latest-payouts h2 {
-color: white;
-} */
-.latest-payouts .date {
-width: 40%;
-}
-.latest-payouts .stuff {
-width: 70%;
-}
-
-.latest-payouts .table {
-width: 400px;
-margin: auto;
-max-height: 305px;
-overflow: hidden;
-background-color: rgba(224, 223, 207, 0.548);
-}
-
-[draggable=true] {
-    cursor: move;
-}
 </style>

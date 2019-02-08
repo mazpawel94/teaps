@@ -1,8 +1,8 @@
 <template>
     <div class="employees">
 
-        <div class="employee" v-for='(worker, index) in workers' v-bind:key="worker._id">
-            <input type="checkbox" v-model="worker.today" @click="emitTodayWorkers(index)">
+        <div class="employee" v-for='worker in workers' v-bind:key="worker._id">
+            <input type="checkbox" v-model="worker.today" @click="emitTodayWorkers(worker)">
             <div class="name">{{worker.name}}</div>
             <div class="sum" v-if="worker.money>0" :style="{ width: worker.money * 30 + 'px' }">{{worker.money.toFixed(2) + ' zł'}}
             <div class="start-amount"></div>
@@ -96,9 +96,9 @@ export default {
             return sum;
         
         },
-        emitTodayWorkers: function(index) {
-
-            this.workers[index].today = !this.workers[index].today; //konieczne, ponieważ razie zdarzenie jest wywoływane przed aktualizacją checkboxa
+        emitTodayWorkers: function(worker) {
+            worker.hours = 1;  //domyślnie zakładamy, że pracuje całą zmianę, gdyż tak jest w 95% przypadków
+            worker.today = !worker.today; //konieczne, ponieważ razie zdarzenie jest wywoływane przed aktualizacją checkboxa
             const tab = this.todayWorkers();
             this.$emit('input', tab);
         },

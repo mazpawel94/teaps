@@ -1,12 +1,11 @@
 <template>
     <div>
-  <div class="tips-form" v-if="visible && (newTips || todayWorkers.length)">
-  <!-- <div class="tips-form" v-if="newTips || todayWorkers.length"> -->
+  <div class="tips-form" v-if="visible && (newTips>0 || todayWorkers.length)">
     <h3 v-if="coins.length">{{beautyAmount(sum() - startAmount)}}</h3>
     <ul>
       <li v-for="worker in todayWorkers" v-bind:key="worker.name">
         <span>{{worker.name}}</span>
-        <select name="hours" id="hours" v-model="worker.hours">
+        <select name="hours" v-model="worker.hours">
           <option value="1">cała zmiana</option>
           <option value="0.5">pół zmiany</option>
           <option value="2">podwójna zmiana</option>
@@ -44,14 +43,16 @@ export default {
       
   },
   methods: {
+
     beautyAmount: function(amount) {
       return ` ${Math.floor(amount / 100)},${
         amount % 100 < 10 ? "0" + (amount % 100) : amount % 100
       } zł`;
     },
-      sum: function () {
-            const sum = this.coins[0].amount*1 + this.coins[1].amount*2 + this.coins[2].amount*5 + this.coins[3].amount*10 + this.coins[4].amount*20 + this.coins[5].amount*50 + this.coins[6].amount*100 + this.coins[7].amount*200 + this.coins[8].amount*500 + this.coins[9].amount*1000;
-            return sum;
+
+    sum: function () {
+      const sum = this.coins[0].amount*1 + this.coins[1].amount*2 + this.coins[2].amount*5 + this.coins[3].amount*10 + this.coins[4].amount*20 + this.coins[5].amount*50 + this.coins[6].amount*100 + this.coins[7].amount*200 + this.coins[8].amount*500 + this.coins[9].amount*1000;
+      return sum;
         
         },
 
@@ -64,8 +65,9 @@ export default {
         date.getHours()
       )}:${leadingZero(date.getMinutes())}`;
     },
+
     newCalculation: function() {
-        this.visible=false;
+      this.visible=false;
       let todayWorkersSum = this.todayWorkers.reduce((e1, e2, index) => {
         if (index === 1) return parseFloat(e1.hours) + parseFloat(e2.hours);
         return e1 + parseFloat(e2.hours);
@@ -83,8 +85,8 @@ export default {
       });
       this.saveEmployeeToBase(todayName, todayMoney);
       let participantsTable =[];
-            [...this.todayWorkers].forEach(e => {
-                participantsTable.push(e.name)});
+      [...this.todayWorkers].forEach(e => {
+          participantsTable.push(e.name)});
       this.saveSummaryToBase(this.currentDate(), participantsTable.join(', '), this.beautyAmount(this.newTips));
       this.saveSum(this.sum());
       const coinsName = [];
@@ -96,6 +98,7 @@ export default {
       });
       this.saveToBaseCoin(coinsName, coinsAmount);     
     },
+
     async saveEmployeeToBase(name, money) {
       try {
         await DBService.addEmployeeMoney(name, money);
@@ -104,6 +107,7 @@ export default {
         this.error = error;
       }
     },
+
     async saveSummaryToBase(date, participants,sum) {
         try {
             await DBService.addSummary(date, participants, sum);
@@ -112,6 +116,7 @@ export default {
           this.error = error;
         }
     },
+
     async saveSum(sum) {
       try {
         await DBService.saveSum(sum);
@@ -120,6 +125,7 @@ export default {
         this.error = error;
       }
     },
+
     async saveToBaseCoin(name, money) {
       try {
         await DBService.saveCoins(name, money);
@@ -136,14 +142,13 @@ export default {
               if(!this.coins.length) return 0;
             return this.sum() - this.startAmount;
         }
-        }
+  }
 };
 </script>
 
 <style>
 .tips-form {
   position: absolute;
-  /* display: none; */
   background-color: rgb(199, 164, 11);
   border: 2px solid rgba(153, 126, 53, 0.616);
   border-radius: 15px;
@@ -198,7 +203,19 @@ export default {
   background-color: rgb(199, 164, 11);
   width: 400px;
   height: 100px;
+  font-size: 20px;
   text-align: center;
   line-height: 50px;
+  border: 3px solid rgb(100, 83, 7);
+  border-radius: 10px;
+  box-shadow: 5px -2px 30px 1px black;
+}
+ .saved-status button {
+  cursor: pointer;
+  background-color: #094604;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
 }
 </style>

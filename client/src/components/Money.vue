@@ -1,6 +1,5 @@
 <template>
   <div class="money">
-        <div class="glass"></div>
         <div class="summary">
             <div class="images">
                 <img src="../img/1_grosz.png" alt="">
@@ -15,16 +14,16 @@
                 <img src="../img/4213d4154183bc179091bdbadd46.jpg" alt="">
             </div>
             <div class="inputs">
-                <input type="number" name='one-penny' data-penny=1  v-model="coins[0].amount" @input="emitSum">
-                <input type="number" name='two-penny' data-penny=2  v-model="coins[1].amount" @input="emitSum">
-                <input type="number" name='five-penny' data-penny=5  v-model="coins[2].amount" @input="emitSum">
-                <input type="number" name='ten-penny' data-penny=10  v-model="coins[3].amount" @input="emitSum">
-                <input type="number" name='twenty-penny' data-penny=20  v-model="coins[4].amount" @input="emitSum">
-                <input type="number" name='fifty-penny' data-penny=50  v-model="coins[5].amount" @input="emitSum">
-                <input type="number" name='one-zloty' data-penny=100  v-model="coins[6].amount" @input="emitSum">
-                <input type="number" name='two-zlotys' data-penny=200  v-model="coins[7].amount" @input="emitSum">
-                <input type="number" name='five-zlotys' data-penny=500  v-model="coins[8].amount" @input="emitSum">
-                <input type="number" name='ten-zlotys' data-penny=1000  v-model="coins[9].amount" @input="emitSum">
+                <input type="number" name='one-penny' v-model="coins[0].amount" @input="emitSum">
+                <input type="number" name='two-penny' v-model="coins[1].amount" @input="emitSum">
+                <input type="number" name='five-penny' v-model="coins[2].amount" @input="emitSum">
+                <input type="number" name='ten-penny' v-model="coins[3].amount" @input="emitSum">
+                <input type="number" name='twenty-penny' v-model="coins[4].amount" @input="emitSum">
+                <input type="number" name='fifty-penny' v-model="coins[5].amount" @input="emitSum">
+                <input type="number" name='one-zloty' v-model="coins[6].amount" @input="emitSum">
+                <input type="number" name='two-zlotys' v-model="coins[7].amount" @input="emitSum">
+                <input type="number" name='five-zlotys' v-model="coins[8].amount" @input="emitSum">
+                <input type="number" name='ten-zlotys' v-model="coins[9].amount" @input="emitSum">
             </div>
         </div>
         <div class="pig">
@@ -45,6 +44,7 @@ export default {
      startAmount: 0,
     }
   },
+
   async created() {
     try {
      this.coins = await DBService.getMoneys();
@@ -57,6 +57,7 @@ export default {
   },
   
   methods : {
+
     async newCalculation() {
       try {
           await DBService.saveSum(this.beautyAmount(this.sum()));
@@ -67,26 +68,27 @@ export default {
             this.error = err;
           }
     },
+
     emitSum: function () {
-        // this.$emit('input', this.newTips);
-        const tab = this.coins;
-        this.$emit('input', tab);
+        this.$emit('input', this.coins);
     },
+
     sum: function () {
-            const sum = this.coins[0].amount*1 + this.coins[1].amount*2 + this.coins[2].amount*5 + this.coins[3].amount*10 + this.coins[4].amount*20 + this.coins[5].amount*50 + this.coins[6].amount*100 + this.coins[7].amount*200 + this.coins[8].amount*500 + this.coins[9].amount*1000;
-            return sum;
-        
+        return this.coins[0].amount*1 + this.coins[1].amount*2 + this.coins[2].amount*5 + this.coins[3].amount*10 + this.coins[4].amount*20 + this.coins[5].amount*50 + this.coins[6].amount*100 + this.coins[7].amount*200 + this.coins[8].amount*500 + this.coins[9].amount*1000;
         },
-        beautyAmount: function(amount) {
-            return ` ${Math.floor(amount/100)},${amount%100 <10 ? "0" + amount%100 : amount%100} zł`;
+
+    beautyAmount: function(amount) {
+        return ` ${Math.floor(amount/100)},${amount%100 <10 ? "0" + amount%100 : amount%100} zł`;
         },
-        },
-        computed: {
-          newTips: function() {
-            return this.sum() - this.startAmount;
+    },
+
+    
+computed: {
+    newTips: function() {
+        return this.sum() - this.startAmount;
         }
-        }
-  }
+    }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

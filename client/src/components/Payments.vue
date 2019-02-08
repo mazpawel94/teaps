@@ -4,7 +4,7 @@
         <div class="table">
             <div class="nav">
                 <div class="date">Data</div>
-                <div class="stuff">Osoba wypłacająca</div>
+                <div class="stuff">Dychobiorca</div>
             </div>
             <div class="day" v-for='payment in payments.slice().reverse()' v-bind:key="payment.date">
                 <div class="date">{{payment.date}}</div>
