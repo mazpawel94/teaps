@@ -1,32 +1,31 @@
 import axios from "axios";
 
-const url = 'api/moneys';
-const url2 = 'api/employees';
-const url3 = 'api/summaries';
-const url4 = 'api/payments';
+const urlMoneys = 'api/moneys';
+const urlPig = 'api/pig';
+const urlEmployees = 'api/employees';
+const urlSummaries = 'api/summaries';
+const urlPayments = 'api/payments';
+
+
 class DBService {
 
     static getMoneys() {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.get(url);
+                const res = await axios.get(urlMoneys);
                 const data = res.data;
                 resolve(data.map(el => ({
                     ...el
-                })));
-                // resolve(data);
-                
+                })));                
             }
-
             catch (err) {
-                reject(err);
-                
+                reject(err);               
             }
         })
     }
 
     static saveSum(sum) {
-        return axios.put('api/pig', {
+        return axios.put(urlPig, {
                     sum: sum
                 });
     }
@@ -34,20 +33,18 @@ class DBService {
     static getSum() {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.get('api/pig');
+                const res = await axios.get(urlPig);
                 const data = res.data;
                 resolve(data);
-                // resolve(data);
             }
             catch (err) {
                 reject(err);
-                
             }
         })
     }
 
     static saveCoins(coin, amount) {
-   return axios.put(url, {
+        return axios.put(urlMoneys, {
                     coin: coin,
                     amount: amount
                 });
@@ -56,39 +53,26 @@ class DBService {
     static getEmployees() {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.get(url2);
+                const res = await axios.get(urlEmployees);
                 const data = res.data;
                 resolve(data.map(el => ({
                     ...el
                 })));
-                // resolve(data);
-                
             }
-
             catch (err) {
                 reject(err);
-                
             }
         })
     }
 
-
     static addEmployee(name) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const res = await axios.post(url2, {
+        return axios.post(urlEmployees, {
                     name: name
                 });
-                resolve(res);
-            } catch (error) {
-                reject(error);
-            }
         }
-        )
-    }
 
     static addEmployeeMoney(name, amount) {
-        return axios.put(url2, {
+        return axios.put(urlEmployees, {
             name:name,
             money: amount
         });
@@ -98,24 +82,20 @@ class DBService {
     static getSummaries() {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.get(url3);
+                const res = await axios.get(urlSummaries);
                 const data = res.data;
                 resolve(data.map(el => ({
                     ...el
                 })));
-                // resolve(data);
-                
             }
-
             catch (err) {
                 reject(err);
-                
             }
         })
     }
 
     static addSummary(date, participants, sum) {
-        return axios.post(url3, {
+        return axios.post(urlSummaries, {
             participants: participants,
             sum: sum,
             date: date,
@@ -123,40 +103,26 @@ class DBService {
     }
 
     static addPayment(name, date) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const res = await axios.post(url4, {
-                    name: name,
-                    date: date
-                });
-                resolve(res);
-            } catch (error) {
-                reject(error);
-            }
+        return axios.post(urlPayments, {
+                name: name,
+                date: date
+            });
         }
-        )
-    }
-
 
     static getPayments() {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.get(url4);
+                const res = await axios.get(urlPayments);
                 const data = res.data;
                 resolve(data.map(el => ({
                     ...el
                 })));
-                // resolve(data);
-                
             }
-
             catch (err) {
                 reject(err);
-                
             }
         })
     }
-    
 
 }
 

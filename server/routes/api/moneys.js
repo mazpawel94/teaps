@@ -10,22 +10,13 @@ async function loadDB(collectionName) {
      });
      return client.db('teaps').collection(`${collectionName}`);
     }
+
 //getMoneyValue
 router.get('/moneys', async (req, res) => {
     const moneys = await loadDB('moneys');
     const tab = await moneys.find({}).toArray();
     res.send(tab);
 });
-
-//addMoneys
-router.post('/moneys', async(req, res) => {
-    const coins = await loadDB('moneys');
-    await coins.insertOne({
-    coin: req.body.coin,
-    amount: 0
-    });
-    res.status(201).send();
-})
 
 //update moneys
 router.put('/moneys', async(req, res) => {
@@ -37,15 +28,13 @@ router.put('/moneys', async(req, res) => {
     res.status(201).send();
 })
 
-
-
 //getEmployees
 router.get('/employees', async (req, res) => {
     const employees = await loadDB('employees');
     const tab = await employees.find({}).toArray();
-    // res.send(await moneys.find({}).toArray());
     res.send(tab);
 });
+
 //addEmployee
 router.post('/employees', async(req, res) => {
     const employees = await loadDB('employees');
@@ -66,7 +55,6 @@ router.put('/employees', async(req, res) => {
     res.status(201).send();
 })
 
-
 //update pig
 router.put('/pig', async(req, res) => {
     const coins = await loadDB('pig');
@@ -82,7 +70,6 @@ router.get('/pig', async (req, res) => {
 });
 
 // get summaries
-
 router.get('/summaries', async(req, res) => {
     const summaries = await loadDB('summaries');
     const tab = await summaries.find({}).toArray();
@@ -90,7 +77,6 @@ router.get('/summaries', async(req, res) => {
 })
 
 // add summary
-
 router.post('/summaries', async(req, res) => {
     const summaries = await loadDB('summaries');
     await summaries.insertOne({
@@ -101,9 +87,7 @@ router.post('/summaries', async(req, res) => {
     res.status(201).send();
 })
 
-
 // get payment
-
 router.get('/payments', async(req, res) => {
     const payments = await loadDB('payments');
     const tab = await payments.find({}).toArray();
@@ -111,7 +95,6 @@ router.get('/payments', async(req, res) => {
 })
 
 // add payment
-
 router.post('/payments', async(req, res) => {
     const payments = await loadDB('payments');
     await payments.insertOne({
@@ -120,8 +103,6 @@ router.post('/payments', async(req, res) => {
     });
     res.status(201).send();
 })
-
-
 
 
 module.exports = router;
