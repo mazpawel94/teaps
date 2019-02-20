@@ -50,7 +50,7 @@ async created() {
     background-color: rgba(224, 223, 207, 0.548);
     margin: auto;
     width: 100%;
-    height: 200px;
+    height: 250px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -97,12 +97,8 @@ width: 5px;
 height: 20px;
 }
 
-.table::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-}
-
 .table::-webkit-scrollbar-thumb {
-background-color: rgba(41, 57, 148, 0.794);
+background-color: rgba(13, 71, 5, 0.692);
 border-radius: 25px;
 }
 

@@ -43,7 +43,7 @@ export default {
     background-image: url(img/money-case-163495_1280.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    overflow: hidden;
+    overflow-x: hidden;
     height: 100vh;
      font-family: 'Montserrat', sans-serif;
 }

@@ -41,6 +41,7 @@ export default {
 h2 {
     text-align: center;
     text-transform: uppercase;
+    margin-top: 15px;
     margin-bottom: 15px;
 
 }
@@ -69,10 +70,21 @@ width: 70%;
 
 .latest-payouts .table {
 width: 400px;
+height: 250px;
 margin: auto;
-max-height: 305px;
-overflow: hidden;
+overflow-y: scroll;
+overflow-x: hidden;
 background-color: rgba(224, 223, 207, 0.548);
+}
+
+.table::-webkit-scrollbar {
+width: 5px;
+height: 20px;
+}
+
+.table::-webkit-scrollbar-thumb {
+background-color: rgba(13, 71, 5, 0.692);
+border-radius: 25px;
 }
 
 </style>

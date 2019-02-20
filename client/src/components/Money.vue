@@ -91,16 +91,13 @@ computed: {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .money  {
-    float: left;
-min-width: 40%;
-min-height: 50vh;
+  float: left;
+  min-width: 40%;
+  min-height: 50vh;
   display: flex;
-  flex-direction: column;
-  /* background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 5%; */
+  flex-direction: column; 
 }
 .money input {
     width: 40px;
@@ -122,9 +119,6 @@ min-height: 50vh;
       margin-left: 10px;
   }
 .money .pig {
-    /* background-color: rgba(255, 255, 255, 0.178); */
-    /* flex-basis: 35%; */
-    /* flex-grow: 1; */
     text-align: center;
     position: relative;
 }
@@ -139,22 +133,5 @@ min-height: 50vh;
     transform: translate(-50%, -50%);
     color: rgb(208, 211, 30)
 }
-.money button{
-    cursor: pointer;
-    width: 150px;
-    min-height: 50px;
-    margin: 20px  70%;
-    border-radius: 15px;
-    background-color: rgb(32, 175, 19);
-    color: white;
-    letter-spacing: 1.5px;
-    border: none;
-    box-shadow: 0 0 25px 2px black;
-    font-size: 16px;
-    transition: .2s;
-}
-.money button:hover {
-   transform: translate(-2px,-30px) scale(1.2);
-   box-shadow: 0 0 35px 1px black;
-}
+
 </style>

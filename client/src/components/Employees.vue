@@ -157,7 +157,7 @@ export default {
   .employees {
     margin-top: 20px;
     margin-left: 10px;
-    /* width: 850px; */
+    min-width: 700px;
     background-color: rgba(21, 77, 77, 0.459);
     border: rgb(21, 77, 77) 2px solid;
     border-radius: 50px;
@@ -169,6 +169,8 @@ export default {
     position: relative;
     margin-left: auto;
     margin-right: 10px;
+    max-height: 60vh;
+    min-height: 300px;
 
 }
 
@@ -214,7 +216,7 @@ export default {
 .employee .name, .employee.new .new-employee {
     background-color: rgba(198, 224, 196, 0.781);
     width: 200px;
-    height: auto;
+    height: 100%;
     margin-left: 40px;
     border-radius: 50px;
     font-size: 24px;
