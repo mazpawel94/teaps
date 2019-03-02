@@ -14,9 +14,9 @@
     </ul>
     <button class="save-changes" @click="newCalculation">Zapisz zmiany</button>
   </div>    
-    <div class="saved-status" v-if="successSave">
+    <div class="saved-status" v-if="successSave>=0">
       <span v-if="successSave<4"> Trwa zapis... <br>{{(successSave/4) * 100}}%</span>
-      <span v-else> Zapis danych zakończony sukcesem!<br><button @click="successSave = 0"> Zamknij</button></span>  
+      <span v-else> Zapis danych zakończony sukcesem!<br><button @click="successSave = -1"> Zamknij</button></span>  
   </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
         return {
             startAmount: 1,
             visible: true,
-            successSave: 0,
+            successSave: -1,
             error: ''
         }
     },
@@ -68,6 +68,7 @@ export default {
 
     newCalculation: function() {
       this.visible=false;
+      this.successSave++;
       let todayWorkersSum = this.todayWorkers.reduce((e1, e2, index) => {
         if (index === 1) return parseFloat(e1.hours) + parseFloat(e2.hours);
         return e1 + parseFloat(e2.hours);

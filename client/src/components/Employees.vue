@@ -253,6 +253,7 @@ export default {
     visibility: hidden;
     color: white;
     padding: 5px;
+    letter-spacing: 1px;
 }
 
 .employee .sum .take-money.show {
