@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const moneys = require('./routes/api/moneys');
+const moneys = require('./routes/api');
 app.use('/api', moneys);
 
 if(process.env.NODE_ENV === 'production') {

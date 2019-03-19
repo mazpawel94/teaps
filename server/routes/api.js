@@ -15,7 +15,7 @@ async function loadDB(collectionName) {
 router.get('/moneys', async (req, res) => {
     const moneys = await loadDB('moneys');
     const tab = await moneys.find({}).toArray();
-    res.send(tab);
+    res.status(200).send(tab);
 });
 
 //update moneys
@@ -32,7 +32,7 @@ router.put('/moneys', async(req, res) => {
 router.get('/employees', async (req, res) => {
     const employees = await loadDB('employees');
     const tab = await employees.find({}).toArray();
-    res.send(tab);
+    res.status(200).send(tab);
 });
 
 //addEmployee
@@ -66,14 +66,14 @@ router.put('/pig', async(req, res) => {
 router.get('/pig', async (req, res) => {
     const startValue = await loadDB('pig');
     const tab = await startValue.find({}).toArray();
-    res.send(tab);
+    res.status(200).send(tab);
 });
 
 // get summaries
 router.get('/summaries', async(req, res) => {
     const summaries = await loadDB('summaries');
     const tab = await summaries.find({}).toArray();
-    res.send(tab);
+    res.status(200).send(tab);
 })
 
 // add summary
@@ -91,7 +91,7 @@ router.post('/summaries', async(req, res) => {
 router.get('/payments', async(req, res) => {
     const payments = await loadDB('payments');
     const tab = await payments.find({}).toArray();
-    res.send(tab);
+    res.status(200).send(tab);
 })
 
 // add payment
