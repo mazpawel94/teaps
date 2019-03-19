@@ -1,11 +1,11 @@
 const express = require('express');
 const mongodb = require('mongodb');
-
+const clientDB = require('../../dbconfig');
 const router = express.Router();
 
 async function loadDB(collectionName) {
     const client = await mongodb.MongoClient.connect
-     ('mongodb://czarka:keemun1@ds141813.mlab.com:41813/teaps', {
+     (clientDB, {
          useNewUrlParser: true
      });
      return client.db('teaps').collection(`${collectionName}`);
