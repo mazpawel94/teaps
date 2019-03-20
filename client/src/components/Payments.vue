@@ -86,5 +86,9 @@ height: 20px;
 background-color: rgba(13, 71, 5, 0.692);
 border-radius: 25px;
 }
-
+@media (max-width:1024px) {
+  .latest-payouts {
+   width: 99vw;
+  }
+}
 </style>

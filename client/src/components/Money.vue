@@ -133,5 +133,10 @@ computed: {
     transform: translate(-50%, -50%);
     color: rgb(208, 211, 30)
 }
-
+@media (max-width:1024px) {
+  .money {
+    float: none;
+    min-height: 0;
+  }
+}
 </style>

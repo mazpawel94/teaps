@@ -273,5 +273,13 @@ export default {
     margin-left: 20px;
 
 }
+@media (max-width:1024px) {
+  .employee .sum {
+    max-width: 310px;
+  }
+  .take-money {
+      left: 130px;
+  }
+}
   </style>
   
