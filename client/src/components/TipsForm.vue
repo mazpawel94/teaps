@@ -26,7 +26,7 @@ import DBService from "../DBService";
 export default {
     data() {
         return {
-            startAmount: 1,
+            startAmount: 0,
             visible: true,
             successSave: -1,
             error: ''
@@ -45,7 +45,10 @@ export default {
   methods: {
 
     beautyAmount: function(amount) {
-      return ` ${Math.floor(amount / 100)},${
+      let sign = '';
+      if(amount<0) sign = '-';
+      amount = Math.abs(amount);
+      return `${sign}${Math.floor(amount / 100)},${
         amount % 100 < 10 ? "0" + (amount % 100) : amount % 100
       } zł`;
     },
