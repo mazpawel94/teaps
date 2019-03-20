@@ -14,15 +14,15 @@
                 <img src="../img/4213d4154183bc179091bdbadd46.jpg" alt="">
             </div>
             <div class="inputs">
-                <input type="number" name='one-penny' v-model="coins[0].amount" @input="emitSum">
-                <input type="number" name='two-penny' v-model="coins[1].amount" @input="emitSum">
-                <input type="number" name='five-penny' v-model="coins[2].amount" @input="emitSum">
-                <input type="number" name='ten-penny' v-model="coins[3].amount" @input="emitSum">
-                <input type="number" name='twenty-penny' v-model="coins[4].amount" @input="emitSum">
-                <input type="number" name='fifty-penny' v-model="coins[5].amount" @input="emitSum">
-                <input type="number" name='one-zloty' v-model="coins[6].amount" @input="emitSum">
-                <input type="number" name='two-zlotys' v-model="coins[7].amount" @input="emitSum">
-                <input type="number" name='five-zlotys' v-model="coins[8].amount" @input="emitSum">
+                <input type="number" min="0" name='one-penny' v-model="coins[0].amount" @input="emitSum">
+                <input type="number" min="0" name='two-penny' v-model="coins[1].amount" @input="emitSum">
+                <input type="number" min="0" name='five-penny' v-model="coins[2].amount" @input="emitSum">
+                <input type="number" min="0" name='ten-penny' v-model="coins[3].amount" @input="emitSum">
+                <input type="number" min="0" name='twenty-penny' v-model="coins[4].amount" @input="emitSum">
+                <input type="number" min="0" name='fifty-penny' v-model="coins[5].amount" @input="emitSum">
+                <input type="number" min="0" name='one-zloty' v-model="coins[6].amount" @input="emitSum">
+                <input type="number" min="0" name='two-zlotys' v-model="coins[7].amount" @input="emitSum">
+                <input type="number" min="0" name='five-zlotys' v-model="coins[8].amount" @input="emitSum">
                 <input type="number" name='ten-zlotys' v-model="coins[9].amount" @input="emitSum">
             </div>
         </div>
