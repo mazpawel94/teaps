@@ -70,6 +70,7 @@ export default {
     },
 
     newCalculation: function() {
+      if(!this.todayWorkers.length) return alert('Zaznacz pracowników');
       this.visible=false;
       this.successSave++;
       let todayWorkersSum = this.todayWorkers.reduce((e1, e2, index) => {
