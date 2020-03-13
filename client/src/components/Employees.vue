@@ -2,7 +2,7 @@
   <div class="employees">
     <div class="loader" v-if="savingTime"></div>
     <div class="employee" v-for="worker in workers" v-bind:key="worker._id">
-      <input type="checkbox" v-model="worker.today" @click="emitTodayWorkers(worker)">
+      <input type="checkbox" v-model="worker.today" @click="emitTodayWorkers(worker)" />
       <div class="name">{{worker.name}}</div>
       <div class="sum" v-if="worker.money>0" :style="{ width: worker.money * 30 + 'px' }">
         {{worker.money.toFixed(2) + ' zł'}}
@@ -16,8 +16,8 @@
     </div>
 
     <div class="employee new">
-      <input type="checkbox" name id>
-      <input class="new-employee" type="text" placeholder="nowa osoba" v-model="newEmployee">
+      <input type="checkbox" name id />
+      <input class="new-employee" type="text" placeholder="nowa osoba" v-model="newEmployee" />
       <button @click="addEmployee">+</button>
     </div>
   </div>
@@ -174,12 +174,13 @@ export default {
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   position: relative;
   margin-left: auto;
   margin-right: 10px;
   max-height: 60vh;
   min-height: 300px;
+  overflow-y: scroll;
 }
 
 .employees::before {
@@ -202,8 +203,9 @@ export default {
   width: 1px;
   border-left: dotted 3px white;
   /* border: dotted 1px white; */
-  height: calc(100% - 40px);
+  /* height: calc(100% - 40px); */
   top: 35px;
+  bottom: 0;
   left: 605px;
 }
 .employee {
@@ -218,6 +220,7 @@ export default {
   height: 25px;
   width: 25px;
   margin-top: 3px;
+  margin-left: 10px;
 }
 .employee .name,
 .employee.new .new-employee {
@@ -277,6 +280,17 @@ export default {
   border: none;
   margin-left: 20px;
 }
+
+.employees::-webkit-scrollbar {
+  width: 5px;
+  height: 20px;
+}
+
+.employees::-webkit-scrollbar-thumb {
+  background-color: rgba(238, 218, 130, 0.41);
+  border-radius: 25px;
+}
+
 @media (max-width: 1024px) {
   .employee .sum {
     max-width: 310px;
