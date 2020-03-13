@@ -169,7 +169,7 @@ export default {
   min-width: 700px;
   background-color: rgba(21, 77, 77, 0.459);
   border: rgb(21, 77, 77) 2px solid;
-  border-radius: 50px;
+  border-radius: 50px 10px 10px 50px;
   padding: 15px;
   text-align: center;
   display: flex;
