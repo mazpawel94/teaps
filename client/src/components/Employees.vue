@@ -95,7 +95,7 @@ export default {
         this.getMoneyFromPig(),
         this.refreshSum()
       ];
-      Promise.all(promises).then(data => {
+      Promise.all(promises).then(() => {
         this.savingTime = false;
       });
     },
