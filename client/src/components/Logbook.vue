@@ -1,6 +1,6 @@
 <template>
     <div class="logbook">
-        <h2>dziennik napiwków</h2>
+        <h2>dziennik </h2>
         <div class="table">
             <div class="nav">
                 <div class="date">Data</div>
