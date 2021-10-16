@@ -1,11 +1,14 @@
 <template>
   <div>
-    <div class="loader" v-if="successSave>=0"></div>
-    <div class="tips-form" v-if="visible && (newTips>0 || todayWorkers.length)">
-      <h3 v-if="coins.length">{{beautyAmount(sum() - startAmount)}}</h3>
+    <div class="loader" v-if="successSave >= 0"></div>
+    <div
+      class="tips-form"
+      v-if="visible && (newTips > 0 || todayWorkers.length)"
+    >
+      <h3 v-if="coins.length">{{ beautyAmount(sum() - startAmount) }}</h3>
       <ul>
         <li v-for="worker in todayWorkers" v-bind:key="worker.name">
-          <span>{{worker.name}}</span>
+          <span>{{ worker.name }}</span>
           <select name="hours" v-model="worker.hours">
             <option value="1">cała zmiana</option>
             <option value="0.5">pół zmiany</option>
@@ -13,17 +16,19 @@
           </select>
         </li>
       </ul>
-      <button class="save-changes" @click="newCalculation">Zapisz zmiany</button>
+      <button class="save-changes" @click="newCalculation">
+        Zapisz zmiany
+      </button>
     </div>
-    <div class="saved-status" v-if="successSave>=0">
-      <span v-if="successSave<4">
+    <div class="saved-status" v-if="successSave >= 0">
+      <span v-if="successSave < 4">
         Trwa zapis...
-        <br>
-        {{(successSave/4) * 100}}%
+        <br />
+        {{ (successSave / 4) * 100 }}%
       </span>
       <span v-else>
         Zapis danych zakończony sukcesem!
-        <br>
+        <br />
         <button @click="successSave = -1">Zamknij</button>
       </span>
     </div>
@@ -38,11 +43,12 @@ export default {
       startAmount: 0,
       visible: true,
       successSave: -1,
-      error: ""
+      error: "",
     };
   },
-  props: ["coins", "todayWorkers"],
+  props: ["coins", "todayWorkers", "pigValue"],
   async created() {
+    this.$root.$refs.TipsForm = this;
     try {
       const a = await DBService.getSum();
       this.startAmount = a[0].sum;
@@ -51,7 +57,10 @@ export default {
     }
   },
   methods: {
-    beautyAmount: function(amount) {
+    subtract10zl: function () {
+      this.startAmount -= 1000;
+    },
+    beautyAmount: function (amount) {
       let sign = "";
       if (amount < 0) sign = "-";
       amount = Math.abs(amount);
@@ -60,7 +69,7 @@ export default {
       } zł`;
     },
 
-    sum: function() {
+    sum: function () {
       const sum =
         this.coins[0].amount * 1 +
         this.coins[1].amount * 2 +
@@ -75,9 +84,9 @@ export default {
       return sum;
     },
 
-    currentDate: function() {
+    currentDate: function () {
       let date = new Date();
-      const leadingZero = i => (i < 10 ? "0" + i : i);
+      const leadingZero = (i) => (i < 10 ? "0" + i : i);
       return `${leadingZero(date.getDate())}/${leadingZero(
         date.getMonth() + 1
       )}/${leadingZero(date.getFullYear())}, ${leadingZero(
@@ -85,7 +94,7 @@ export default {
       )}:${leadingZero(date.getMinutes())}`;
     },
 
-    newCalculation: function() {
+    newCalculation: function () {
       if (!this.todayWorkers.length) return alert("Zaznacz pracowników");
       this.visible = false;
       this.successSave++;
@@ -97,7 +106,7 @@ export default {
         todayWorkersSum = this.todayWorkers[0].hours;
       const todayName = [];
       const todayMoney = [];
-      this.todayWorkers.forEach(e => {
+      this.todayWorkers.forEach((e) => {
         e.money +=
           Math.floor(this.newTips / (todayWorkersSum / parseFloat(e.hours))) /
           100;
@@ -106,7 +115,7 @@ export default {
       });
       this.saveEmployeeToBase(todayName, todayMoney);
       let participantsTable = [];
-      [...this.todayWorkers].forEach(e => {
+      [...this.todayWorkers].forEach((e) => {
         participantsTable.push(e.name);
       });
       this.saveSummaryToBase(
@@ -117,7 +126,7 @@ export default {
       this.saveSum(this.sum());
       const coinsName = [];
       const coinsAmount = [];
-      [...this.coins].forEach(e => {
+      [...this.coins].forEach((e) => {
         coinsName.push(e.coin);
         coinsAmount.push(e.amount);
       });
@@ -158,15 +167,15 @@ export default {
       } catch (error) {
         this.error = error;
       }
-    }
+    },
   },
 
   computed: {
-    newTips: function() {
+    newTips: function () {
       if (!this.coins.length) return 0;
       return this.sum() - this.startAmount;
-    }
-  }
+    },
+  },
 };
 </script>
 

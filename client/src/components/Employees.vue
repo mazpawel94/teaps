@@ -2,22 +2,37 @@
   <div class="employees">
     <div class="loader" v-if="savingTime"></div>
     <div class="employee" v-for="worker in workers" v-bind:key="worker._id">
-      <input type="checkbox" v-model="worker.today" @click="emitTodayWorkers(worker)" />
-      <div class="name">{{worker.name}}</div>
-      <div class="sum" v-if="worker.money>0" :style="{ width: worker.money * 30 + 'px' }">
-        {{worker.money.toFixed(2) + ' zł'}}
+      <input
+        type="checkbox"
+        v-model="worker.today"
+        @click="emitTodayWorkers(worker)"
+      />
+      <div class="name">{{ worker.name }}</div>
+      <div
+        class="sum"
+        v-if="worker.money > 0"
+        :style="{ width: worker.money * 30 + 'px' }"
+      >
+        {{ worker.money.toFixed(2) + " zł" }}
         <div class="start-amount"></div>
         <button
           class="take-money"
-          :class="{'show': worker.money >= 10}"
+          :class="{ show: worker.money >= 10 }"
           @click="take10zlotys(worker)"
-        >Weźże dychę</button>
+        >
+          Weźże dychę
+        </button>
       </div>
     </div>
 
     <div class="employee new">
       <input type="checkbox" name id />
-      <input class="new-employee" type="text" placeholder="nowa osoba" v-model="newEmployee" />
+      <input
+        class="new-employee"
+        type="text"
+        placeholder="nowa osoba"
+        v-model="newEmployee"
+      />
       <button @click="addEmployee">+</button>
     </div>
   </div>
@@ -33,7 +48,7 @@ export default {
       text: "",
       workers: [],
       newEmployee: "",
-      savingTime: false
+      savingTime: false,
     };
   },
   props: ["coins"],
@@ -47,24 +62,24 @@ export default {
   },
 
   methods: {
-    todayWorkers: function() {
-      return this.workers.filter(e => e.today);
+    todayWorkers: function () {
+      return this.workers.filter((e) => e.today);
     },
-    checkName: function(newName) {
+    checkName: function (newName) {
       let uniqueName = true;
-      [...this.workers].forEach(e => {
+      [...this.workers].forEach((e) => {
         if (e.name.toUpperCase() === newName.toUpperCase()) uniqueName = false;
       });
       return uniqueName;
     },
 
-    addEmployee: function() {
+    addEmployee: function () {
       const name = this.newEmployee.trim();
       if (name.length === 0) return;
       if (this.checkName(name)) {
         this.workers.push({
           name: name,
-          money: 0
+          money: 0,
         });
         this.addEmployeeToBase(name);
         this.newEmployee = "";
@@ -75,9 +90,9 @@ export default {
       }
     },
 
-    currentDate: function() {
+    currentDate: function () {
       let date = new Date();
-      const leadingZero = i => (i < 10 ? "0" + i : i);
+      const leadingZero = (i) => (i < 10 ? "0" + i : i);
       return `${leadingZero(date.getDate())}/${leadingZero(
         date.getMonth() + 1
       )}/${leadingZero(date.getFullYear())}, ${leadingZero(
@@ -85,21 +100,24 @@ export default {
       )}:${leadingZero(date.getMinutes())}`;
     },
 
-    take10zlotys: function(worker) {
+    take10zlotys: function (worker) {
       this.savingTime = true;
       worker.money = Math.round((worker.money - 10) * 100) / 100;
+
       this.coins[9].amount -= 1;
       const promises = [
         this.addEmployeeMoney(worker.name, worker.money),
         this.addPayment(worker.name, this.currentDate()),
         this.getMoneyFromPig(),
-        this.refreshSum()
+        this.refreshSum(),
       ];
       Promise.all(promises).then(() => {
+        this.$root.$refs.TipsForm.subtract10zl();
         this.savingTime = false;
       });
     },
-    sum: function() {
+
+    sum: function () {
       const sum =
         this.coins[0].amount * 1 +
         this.coins[1].amount * 2 +
@@ -113,7 +131,7 @@ export default {
         this.coins[9].amount * 1000;
       return sum;
     },
-    emitTodayWorkers: function(worker) {
+    emitTodayWorkers: function (worker) {
       worker.hours = 1; //domyślnie zakładamy, że pracuje całą zmianę, gdyż tak jest w 95% przypadków
       worker.today = !worker.today; //konieczne, ponieważ razie zdarzenie jest wywoływane przed aktualizacją checkboxa
       const tab = this.todayWorkers();
@@ -157,12 +175,12 @@ export default {
       } catch (error) {
         this.error = error;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-  <style>
+<style>
 .employees {
   margin-top: 20px;
   margin-left: 10px;
@@ -300,4 +318,3 @@ export default {
   }
 }
 </style>
-  
