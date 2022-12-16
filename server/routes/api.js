@@ -1,10 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const mongodb = require("mongodb");
-const clientDB = require("../../dbconfig");
 const router = express.Router();
 
 async function loadDB(collectionName) {
-  const client = await mongodb.MongoClient.connect(clientDB, {
+  const client = await mongodb.MongoClient.connect(process.env.CLIENT, {
     useNewUrlParser: true,
   });
   return client.db("teaps").collection(`${collectionName}`);
