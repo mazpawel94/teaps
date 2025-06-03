@@ -1,7 +1,11 @@
 <template>
   <div class="employees">
     <div class="loader" v-if="savingTime"></div>
-    <div class="employee" v-for="worker in workers" v-bind:key="worker._id">
+    <div
+      class="employee"
+      v-for="worker in filteredWorkers"
+      v-bind:key="worker._id"
+    >
       <input
         type="checkbox"
         v-model="worker.today"
@@ -35,6 +39,10 @@
       />
       <button @click="addEmployee">+</button>
     </div>
+    <div class="ex-employee-toggle">
+      <input type="checkbox" v-model="showExEmployees" id="showExEmployees" />
+      <label for="showExEmployees">Pokaż byłych pracowników</label>
+    </div>
   </div>
 </template>
 
@@ -49,10 +57,17 @@ export default {
       workers: [],
       newEmployee: "",
       savingTime: false,
+      showExEmployees: false,
     };
   },
   props: ["coins"],
-
+  computed: {
+    filteredWorkers() {
+      return this.showExEmployees
+        ? this.workers
+        : this.workers.filter((worker) => !worker.isExEmployee);
+    },
+  },
   async created() {
     try {
       this.workers = await DBService.getEmployees();
@@ -187,11 +202,13 @@ export default {
   min-width: 700px;
   background-color: rgba(21, 77, 77, 0.459);
   border: rgb(21, 77, 77) 2px solid;
-  border-radius: 50px 10px 10px 50px;
+  border-radius: 10px;
   padding: 15px;
+  padding-top: 25px;
   text-align: center;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   /* justify-content: space-around; */
   position: relative;
   margin-left: auto;
@@ -199,69 +216,52 @@ export default {
   max-height: 60vh;
   min-height: 300px;
   overflow-y: scroll;
+
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    white 3px,
+    white 6px
+  );
+  /* 537: padding 15 + gap 2*10 + name 180 + checkbox 22 + money 30 * 10 */
+  background-position: 535px 35px;
+  background-size: 3px 100%;
+  background-repeat: repeat-y;
+  background-attachment: local;
 }
 
-.employees::before {
-  content: "10zł";
-  position: absolute;
-  top: 4px;
-  font-size: 20px;
-  left: 615px;
-  transform: translateX(-50%);
-  color: white;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-}
-.employees::after {
-  content: "";
-  position: absolute;
-  background-color: transparent;
-  width: 1px;
-  border-left: dotted 3px white;
-  /* border: dotted 1px white; */
-  /* height: calc(100% - 40px); */
-  top: 35px;
-  bottom: 0;
-  left: 605px;
-}
 .employee {
   min-width: 60%;
-  height: 31px;
+  height: 22px;
   display: flex;
-  margin: 7px;
-  /* background-color: rgba(255, 255, 255, 0.527); */
+  gap: 10px;
 }
+
 .employee input {
   display: block;
-  height: 25px;
-  width: 25px;
-  margin-top: 3px;
-  margin-left: 10px;
+  min-height: 22px;
+  min-width: 22px;
 }
 .employee .name,
 .employee.new .new-employee {
   background-color: rgba(198, 224, 196, 0.781);
-  width: 200px;
-  height: 100%;
-  margin-left: 40px;
-  border-radius: 50px;
-  font-size: 24px;
   border: none;
   text-align: center;
+  border-radius: 5px;
+  font-size: 15px;
+  min-width: 180px;
+  line-height: 22px;
 }
 
 .employee .sum {
   display: inline-block;
-  height: 25px;
   width: 300px;
   background-color: rgb(199, 164, 11);
-  margin-top: 3px;
-  margin-left: 20px;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 15px;
   position: relative;
+  line-height: 22px;
 }
 
 .employee .sum .take-money {
@@ -271,15 +271,17 @@ export default {
   width: auto;
   font-size: 20px;
   right: 0;
-  top: 50%;
-  transform: translate(120%, -50%);
+  top: 0;
+  transform: translate(120%, 0);
   background-color: rgb(58, 195, 17);
   border: none;
-  border-radius: 10px;
+  border-radius: 3px;
   visibility: hidden;
   color: white;
-  padding: 5px;
+  padding: 0 7px;
   letter-spacing: 1px;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .employee .sum .take-money.show {
@@ -292,21 +294,24 @@ export default {
   background-color: rgb(17, 230, 27);
   font-size: 30px;
   color: white;
-  width: 35px;
-  height: 35px;
-  line-height: 35px;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
   border: none;
-  margin-left: 20px;
 }
 
 .employees::-webkit-scrollbar {
   width: 5px;
-  height: 20px;
+  height: 5px;
 }
 
 .employees::-webkit-scrollbar-thumb {
   background-color: rgba(238, 218, 130, 0.41);
   border-radius: 25px;
+}
+
+.ex-employee-toggle {
+  color: white;
 }
 
 @media (max-width: 1024px) {

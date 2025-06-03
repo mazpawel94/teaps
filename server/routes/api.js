@@ -40,6 +40,7 @@ router.post("/employees", async (req, res) => {
   await employees.insertOne({
     name: req.body.name,
     money: 0,
+    isExEmployee: false,
   });
   res.status(201).send();
 });
