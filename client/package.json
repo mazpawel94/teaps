@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "regenerator-runtime": "^0.14.1",
     "vue": "^2.5.21"
   },
   "devDependencies": {
